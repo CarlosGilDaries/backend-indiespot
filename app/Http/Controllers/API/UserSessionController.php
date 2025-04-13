@@ -15,7 +15,26 @@ class UserSessionController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $user = Auth::user();
+            $userSessions = UserSession::where('user_id', $user->id)
+                ->select(['id', 'device_name'])
+                ->get();
+
+            return response()->json([
+                'success' => true,
+                'devices' => $userSessions,
+                'message' => 'Dispositivos obtenidos con éxito.'
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -71,8 +90,24 @@ class UserSessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserSession $userSession)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $id = $request->input('id');
+            UserSession::where('id', $id)->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Dispositivo eliminado exitosamente'
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

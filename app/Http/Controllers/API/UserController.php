@@ -34,15 +34,36 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
+    public function show(string $id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            $content = $user->contents()->get();
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'user' => $user,
+                    'content' => $content,
+                ],
+                'message' => 'Usuario obtenido con éxito.'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     */
     public function getCurrentUser(Request $request) 
     {
         try {
             $user = Auth::user();
-            //Obtener todos los contenidos donde un usuario es actor:
-            //$actorContents = $user->contentsWithRole($actorRoleId)->get();
-
-            //Obtener todos los favoritos de un usuario:
-            //$favorites = $user->favorites;
 
             return response()->json([
                 'success' => true,

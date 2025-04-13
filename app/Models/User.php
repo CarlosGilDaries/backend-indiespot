@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function contents()
     {
-        return $this->belongsToMany(Content::class, 'content_user_role')
+        return $this->belongsToMany(Content::class, 'content_role_user')
                    ->withPivot('role_id');
     }
     
