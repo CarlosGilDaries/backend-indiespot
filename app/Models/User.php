@@ -20,14 +20,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'surname_1',
-        'surname_2',
+        'surnames',
         'email',
         'password',
         'type',
         'curriculum',
         'portfolio',
-        'director',
+        'rol_id',
     ];
 
     /**
@@ -60,14 +59,14 @@ class User extends Authenticatable
 
     public function contents()
     {
-        return $this->belongsToMany(Content::class, 'content_role_user')
-                   ->withPivot('role_id');
+        return $this->belongsToMany(Content::class, 'content_rol_user')
+                   ->withPivot('rol_id');
     }
     
-    public function roles()
+    public function rol()
     {
-        return $this->belongsToMany(Role::class, 'content_user_role')
-                   ->withPivot('content_id');
+    return $this->belongsTo(Rol::class/*, 'content_user_rol'*/);
+                   //->withPivot('content_id');
     }
     
     // Contenidos favoritos

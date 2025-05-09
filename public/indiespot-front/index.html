@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
+    <title>IndieSpot</title>
+</head>
+<body>
+
+    <aside class="background-banner">
+        <video muted autoplay loop poster="">
+            <source src="video/background-loop.mp4" type="video/mp4">
+            <img src="images/back-image.jpg" alt="Background image">
+        </video>
+
+        <div class="banner">
+            <div class="menu">
+                <nav>
+                    <ul class="nav left-nav">
+                        <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="#">Video</a></li>
+                        <li><a href="#">Audio</a></li>
+                        <li><a href="#">Favoritos</a></li>
+                    </ul>
+                </nav>
+                <nav>
+                    <ul class="nav right-nav">
+                        <li><a href="#"><img src="/images/search-icon.png" alt="Search"></a></li>
+                        <li class="user"><a href="/account"><img src="/images/user-icon.png" alt="User"></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="blank">
+                
+            </div>
+            <div class="content-banner">
+                <h1>Título</h1>
+                <button>&#11208 Ver Ahora</button>
+            </div>
+        </div>
+    </aside>
+
+    <main class="index-main">
+        <section class="content-type">
+            <h2>Contenido en vídeo</h2>
+            <div class="content-wrapper">
+                <button class="scroll-left hidden">&lt;</button>
+                <div id="video-content" class="content-container"></div>
+                <button class="scroll-right hidden">&gt;</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="info">
+                <a href="#">Centro de ayuda</a>
+                <a href="#">¿Quiénes somos?</a>
+                <a href="#">Cambiar preferencias de cookies</a>
+            </div>
+            <ul class="icons">
+                <a href="#"><li><img src="/images/instagram-53.png" alt="Instagram"></li></a>
+                <a href="#"><li><img src="/images/facebook.png" alt="Facebook"></li></a>
+                <a href="#"><li><img src="/images/twitterx--v2.png" alt="Twitter"></li></a>
+                <a href="#"><li><img src="/images/github.png" alt="Github"></li></a> 
+            </ul>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/index.js"></script>
+</body>
+</html>

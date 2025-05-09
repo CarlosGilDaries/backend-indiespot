@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+@import 'commons.css';
+@import 'nav.css';
+@import 'footer.css';
+
+body {
+  background-color: #f4f4f4;
+}
+
+.menu {
+  width: 100%;
+  padding-inline: 60px;
+  background-color: black;
+}
+
+main {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  margin-top: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+td a {
+  color: #3498db;
+  transition: color 0.3s ease;
+}
+
+td a:hover {
+  color: #1a5276;
+  text-decoration: underline;
+}
+
+.director-btn,
+.admin-btn {
+    width: 150px;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background: #fbc531;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.director-btn {
+  width: 200px;
+}
+
+.director-btn:hover,
+.admin-btn:hover {
+    background: #e1b12c;
+}
+
+@media (max-width: 400px) {
+  td:nth-child(odd),
+  th:nth-child(odd) {
+    display: none;
+  }
+
+  .menu {
+    padding-inline: 5px;
+  }
+
+  .logo {
+    height: 40px;
+    width: auto;
+  }
+
+  .login-btn {
+    height: 30px;
+    width: auto;
+    font-size: 15px;
+  }
+}

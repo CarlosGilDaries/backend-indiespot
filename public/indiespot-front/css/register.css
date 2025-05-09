@@ -1,0 +1,122 @@
+@import '/css/commons.css';
+@import '/css/nav.css';
+@import '/css/footer.css';
+@import '/css/login.css';
+
+section {
+    height: 80vh;
+    padding-block: 30px;
+}
+
+.register-box {
+    position: relative;
+    width: 400px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form-steps {
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.form-step {
+    position: absolute;
+    width: 100%;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateX(100%);
+    padding: 10px 0;
+}
+
+.form-step.active {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.form-step.next {
+    transform: translateX(100%);
+}
+
+.form-step.prev {
+    transform: translateX(-100%);
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.form-navigation button {
+    width: 48%;
+    height: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #000;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.form-navigation button:hover {
+    filter: brightness(0.8);
+}
+
+.form-navigation button:disabled {
+    background: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    cursor: not-allowed;
+}
+
+.submit-btn {
+    width: 80% !important;
+}
+
+.login-link {
+    font-size: 0.9em;
+    color: #fff;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.login-link p a {
+    color: #fff;
+    font-weight: 600;
+}
+
+.login-link p a:hover {
+    text-decoration: underline;
+}
+
+#curriculum {
+    position: relative;
+    top: 21px;
+}
+
+#rocket {
+    position: absolute;
+    top: -21px;
+}
+
+@media (max-width: 700px) {
+    .register-box {
+        max-width: 350px;
+    }
+    
+    section {
+        height: auto;
+    }
+}

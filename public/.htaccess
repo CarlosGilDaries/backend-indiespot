@@ -5,6 +5,11 @@
 
     RewriteEngine On
 
+    # Bloquear acceso directo PERO permitir desde frontend
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?indiespot-front\.test [NC]
+    RewriteCond %{REQUEST_URI} ^/file/.*\.(mp4|m3u8|pdf)$ [NC]
+    RewriteRule ^ - [F,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

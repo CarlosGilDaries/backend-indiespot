@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rol;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::all();
+            $users = User::with('rol')->get();
 
             return response()->json([
                 'success' => true,
@@ -64,10 +65,12 @@ class UserController extends Controller
     {
         try {
             $user = Auth::user();
+            $rol = Rol::where('id', $user->rol_id)->first();
 
             return response()->json([
                 'success' => true,
                 'user' => $user,
+                'rol' => $rol,
                 'message' => 'Usuario obtenido con éxito'
             ]);
 

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/player.css">
+        <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/7.0/video-js.css" rel="stylesheet" />
+    <!-- Videojs-contrib-ads CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.8.0/videojs.ads.css" rel="stylesheet">
+    <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
+</head>
+<body>
+    <video id="my-video" class="video-js" preload="auto" controls>
+        <p class="vjs-no-js">
+            Para ver este video, habilita JavaScript o usa un navegador compatible con HTML5.
+            <a href="https://videojs.com/html5-video-support/" target="_blank">Más info</a>
+        </p>
+    </video>
+    <!-- Video.js JavaScript -->
+    <script src="https://vjs.zencdn.net/7.0/video.min.js"></script>
+     <!-- Video.js contrib-ads (Para anuncios) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/6.8.0/videojs.ads.min.js"></script>
+    <!-- Plugin HLS para Video.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-http-streaming/3.17.0/videojs-http-streaming.min.js"></script>
+    <script type="module" src="/js/player.js"></script>
+</body>
+</html>

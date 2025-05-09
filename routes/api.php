@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\API\ContentController;
 use App\Http\Controllers\API\LoginController;
-use App\Http\Controllers\API\ContentRoleUserController;
+use App\Http\Controllers\API\ContentRolUserController;
 use App\Http\Controllers\API\ContentUserController;
+use App\Http\Controllers\Api\GenderController;
+use App\Http\Controllers\API\RolController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\UserSessionController;
 use App\Http\Controllers\API\VoteController;
@@ -16,20 +18,39 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('users', [UserController::class, 'index']);
 Route::get('content', [ContentController::class, 'index']);
 
+Route::get('rols', [RolController::class, 'index']);
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('manage-devices', [UserSessionController::class, 'index']);
     Route::delete('destroy-device' , [UserSessionController::class, 'destroy']);
     Route::post('new-device', [UserSessionController::class, 'store']);
+    Route::get('check-device-id', [UserSessionController::class, 'checkDeviceId']);
+    Route::post('logout', [LoginController::class, 'logout']);
 
+    Route::get('users', [Usercontroller::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
+    Route::get('current-user', [UserController::class, 'getCurrentUser']);
 
+    //Route::get('content', [ContentController::class, 'index']);
     Route::get('content/{slug}', [ContentController::class, 'show']);
-    Route::get('{slug}/role-users', [ContentRoleUserController::class, 'show']);
-    Route::post('link-users-with-content', [ContentRoleUserController::class, 'store']);
+    Route::post('add-content', [ContentController::class, 'store']);
+    Route::get('{slug}/rol-users', [ContentRolUserController::class, 'show']);
+    Route::post('link-users-with-content', [ContentRolUserController::class, 'store']);
 
     Route::get('favorites', [ContentUserController::class, 'show']);
     Route::post('{slug}/add-to-favorites', [ContentUserController::class, 'store']);
 
     Route::post('add-vote/{slug}', [VoteController::class, 'store']);
     Route::get('get-vote/{slug}', [VoteController::class, 'show']);
+
+    Route::get('genders', [GenderController::class, 'index']);
+    Route::get('gender/{id}', [GenderController::class, 'show']);
+    Route::post('add-gender', [GenderController::class, 'store']);
+    Route::post('edit-gender/{id}', [GenderController::class, 'update']);
+    Route::delete('delete-gender', [GenderController::class, 'destroy']);
+
+    Route::get('rol/{id}', [RolController::class, 'show']);
+    Route::post('add-rol', [RolController::class, 'store']);
+    Route::post('edit-rol/{id}', [RolController::class, 'update']);
+    Route::delete('delete-rol', [RolController::class, 'destroy']);
 });

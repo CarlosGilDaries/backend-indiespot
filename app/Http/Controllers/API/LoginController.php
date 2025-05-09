@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\UserSession;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-//use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -18,15 +18,23 @@ class LoginController extends Controller
         public function register(Request $request)
     {
         try {
+            $email = $request->input('email');
+
+            $curriculum = $request->file('curriculum');
+            if ($curriculum) {
+                $cvExtension = $curriculum->getClientOriginalExtension();
+                $cvUrl = '/file/' . $email . '/' . $email . '-cv.' . $cvExtension;
+                $curriculum->storeAs('users/' . $email, $email . '-cv.' . $cvExtension, 'private');
+            }
+
             $user = User::create([
-                        'name' => $request->name,
-                        'surname_1' => $request->surname1,
-                        'surname_2' => $request->surname2 ?? null,
-                        'email' => $request->email,
+                        'name' => $request->input('name'),
+                        'surnames' => $request->input('surnames'),
+                        'email' => $request->input('email'),
                         'type' => 'user',
-                        'curriculum' => $request->curriculum ?? null,
-                        'portfolio' => $request->portfolio ?? null,
-                        'director' => $request->director,
+                        'curriculum' => $cvUrl ?? null,
+                        'portfolio' => $request->input('portfolio') ?? null,
+                        'rol_id' => $request->input('rol'),
                         'password' => Hash::make($request->password),
                     ]);
 
@@ -37,7 +45,8 @@ class LoginController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'user' => $user,
+                    'user' => $user->only(['id', 'name', 'surnames', 'email']),
+                    'require_device_registration' => true,
                     'token' => $token,
                 ],
                 'message' => 'Usuario registrado con éxito.'
@@ -66,6 +75,7 @@ class LoginController extends Controller
             }
             
             $device_id = $request->header('User-Device-ID');
+            Log::debug($device_id);
             $ip = $request->header('User-IP');
             $userAgent = $request->header('User-Agent');
 
@@ -75,12 +85,66 @@ class LoginController extends Controller
             ->where('user_agent', $userAgent)
             ->first();
 
+            if ($user->type == 'admin') {
+                $session = UserSession::where('user_id', $user->id)->first();
+
+                if (!$session) {
+                    $deviceId = Str::uuid();
+
+                    $newSession = UserSession::create([
+                        'user_id' => $user->id,
+                        'device_name' => 'admin',
+                        'device_id' => $deviceId,
+                        'ip_address' => $ip,
+                        'user_agent' => $userAgent
+                    ]);
+
+                    $token = $user->createToken($user->name . '/' . $user->email)->plainTextToken;
+
+                    return response()->json([
+                        'success' => true,
+                        'data' => [
+                            'user' => $user->email,
+                            'auth_token' => $token,
+                            'session' => $newSession
+                        ],
+                        'message' => 'Inicio de sesión exitoso'
+                    ], 200);
+                }
+
+                $token = $user->createToken($user->name . '/' . $user->email)->plainTextToken;
+
+                return response()->json([
+                    'success' => true,
+                    'data' => [
+                        'user' => $user,
+                        'auth_token' => $token,
+                        'session' => $session
+                    ],
+                    'message' => 'Inicio de sesión exitoso'
+                ], 200);
+            }
+
             if (!$session) {
+                $newDeviceIdFound = UserSession::where('user_id', $user->id)->first();
+                if ($newDeviceIdFound) {
+                    return response()->json([
+                    'success' => false,
+                    'message' => 'Has alcanzado el límite de dispositivos permitidos',
+                    'device_limit_reached' => true,
+                    'current_devices' => UserSession::where('user_id', $user->id)->get(),
+                    'data' => [
+                        'auth_token' => $user->createToken($user->email)->plainTextToken,
+                        'user' => $user->only(['id', 'name', 'surnames', 'email'])
+                    ]
+                ], 403);
+                }
+
                 return response()->json([
                     'success' => true,
                     'data' => [
                         'require_device_registration' => true,
-                        'user' => $user,
+                        'user' => $user->only(['id', 'name', 'surnames', 'email']),
                         'auth_token' => $user->createToken($user->email)->plainTextToken
                     ],
                     'message' => 'Por favor registre este dispositivo'
@@ -92,7 +156,7 @@ class LoginController extends Controller
             return response()->json([
                 'success' => true,
                 'data' => [
-                    'user' => $user,
+                    'user' => $user->only(['id', 'name', 'surnames', 'email']),
                     'auth_token' => $token
                 ],
                 'message' => 'Inicio de sesión con éxito'

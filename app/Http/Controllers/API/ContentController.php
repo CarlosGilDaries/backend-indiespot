@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -20,10 +21,14 @@ class ContentController extends Controller
     {
         try {
             $content = Content::all();
+            $genders = Gender::all();
 
             return response()->json([
                 'success' => true,
-                'users' => $content,
+                'data' => [
+                    'movies' => $content,
+                    'genders' => $genders,
+                ],
                 'message' => 'Contenido obtenido con éxito'
             ], 201);
 
@@ -52,6 +57,7 @@ class ContentController extends Controller
             $movie->vote_count = 0;
             $movie->vote_average = 0;
             $movie->type = $request->input('type');
+            $movie->principal_gender_id = $request->input('principal_gender_id');
             $movie->duration = $request->input('duration');
 
             //Para que se puedan generar películas con el mismo título pero cada una tenga un slug único
@@ -63,10 +69,21 @@ class ContentController extends Controller
             }
             $movie->slug = $slug;
 
+            $trailer = $request->file('trailer');
+            if ($trailer) {
+                $trailerExtension = $trailer->getClientOriginalExtension();
+                $movie->trailer = '/file/' . $slug . '/' . $slug . '-trailer.' . $trailerExtension;
+                $trailer->storeAs('content/' . $slug, $slug . '-trailer.' . $trailerExtension, 'private');
+            }
+
             $cover = $request->file('cover');
-            $coverExtension = $cover->getClientOriginalExtension();
-            $movie->cover = '/file/' . $slug . '/' . $slug . '-img.' . $coverExtension;
+            if ($cover) {
+                $coverExtension = $cover->getClientOriginalExtension();
+                $movie->cover = '/file/' . $slug . '/' . $slug . '-img.' . $coverExtension;
+                $cover->storeAs('content/' . $slug, $slug . '-img.' . $coverExtension, 'private');
+            }
             $cover->storeAs('content/' . $slug, $slug . '-img.' . $coverExtension, 'private');
+
             if ($request->input('type') != 'application/vnd.apple.mpegurl') {
                 $content = $request->file('content');
                 $contentExtension = $content->getClientOriginalExtension();
@@ -104,7 +121,7 @@ class ContentController extends Controller
                 DB::table('content_role_user')->insert([
                     'content_id' => $movie->id,
                     'user_id' => $director->id,
-                    'role_id' => 1,                   
+                    'role_id' => 2,                   
                     'created_at' => now(),
                     'updated_at' => now(),
             ]);

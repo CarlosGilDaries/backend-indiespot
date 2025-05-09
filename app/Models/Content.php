@@ -10,31 +10,38 @@ class Content extends Model
         'title',
         'overview',
         'tagline',
+        'trailer',
         'cover',
         'release_date',
         'vote_count',
         'vote_average',
         'type',
+        'principal_gender_id',
         'duration',
         'url',
         'slug',
     ];
 
+    public function genders()
+    {
+        return $this->belongsToMany(Gender::class);
+    }
+
     public function users()
     {
-        return $this->belongsToMany(User::class, 'content_role_user')
-                   ->withPivot('role_id');
+        return $this->belongsToMany(User::class, 'content_rol_user')
+                   ->withPivot('rol_id');
     }
     
-    public function roles()
+    public function rols()
     {
-        return $this->belongsToMany(Role::class, 'content_user_role')
+        return $this->belongsToMany(Rol::class, 'content_user_rol')
                    ->withPivot('user_id');
     }
     
     // Método para obtener usuarios con un rol específico en este contenido
-    public function usersWithRole($roleId)
+    public function usersWithRol($rolId)
     {
-        return $this->users()->wherePivot('role_id', $roleId);
+        return $this->users()->wherePivot('rol_id', $rolId);
     }
 }

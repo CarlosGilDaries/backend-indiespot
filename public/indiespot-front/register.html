@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
+    <link rel="stylesheet" href="/css/register.css">
+    <title>Registro</title>
+</head>
+<body>
+    <div class="menu">
+        <nav>
+            <ul class="nav left-nav">
+                <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <section id="register-section">
+        <div class="register-box">
+            <form id="register-form">
+                <h2>Registro de Usuario</h2>
+                
+                <!-- Contenedor de los pasos -->
+                <div id="form-steps">
+                    <!-- Paso 1 -->
+                    <div class="form-step active" data-step="1">
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="person"></ion-icon></span>
+                            <input type="text" id="name" required>
+                            <label>Nombre</label>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="people"></ion-icon></span>
+                            <input type="text" id="surnames" required>
+                            <label>Apellidos</label>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="mail"></ion-icon></span>
+                            <input type="email" id="email" required>
+                            <label>Email</label>
+                        </div>
+                    </div>
+                    
+                    <!-- Paso 2 -->
+                    <div class="form-step" data-step="2">
+                        <div class="input-box select-box">
+                            <span class="icon" id="rocket"><ion-icon name="rocket"></ion-icon></span>
+                            <select id="rol_id" required>
+                                <option value="" disabled selected>Rol</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="document"></ion-icon></span>
+                            <input type="text" id="portfolio" required>
+                            <label>Url Portfolio (Opcional)</label>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="document"></ion-icon></span>
+                            <input type="file" id="curriculum">
+                            <label>Curriculum (Opcional)</label>
+                        </div>
+                    </div>
+ 
+                    <!-- Paso 3 -->
+                    <div class="form-step" data-step="3">
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                            <input type="password" id="password" required>
+                            <label>Contraseña</label>
+                        </div>
+                        
+                        <div class="input-box">
+                            <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                            <input type="password" id="password_confirmation" required>
+                            <label>Confirmar contraseña</label>
+                        </div>
+                    </div>
+                </div>
+
+                <p id="error-message" style="color: red; display: none; font-weight: bold;"></p>
+                
+                <!-- Navegación del formulario -->
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn" disabled>Anterior</button>
+                    <button type="button" class="next-btn">Siguiente</button>
+                    <button type="submit" class="submit-btn" style="display: none;">Registrarse</button>
+                </div>
+                
+                <div class="login-link">
+                    <p>¿Ya tienes cuenta? <a href="/login">Inicia Sesión</a></p>
+                </div>
+                
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="info">
+                <a href="#">Centro de ayuda</a>
+                <a href="#">¿Quiénes somos?</a>
+                <a href="#">Cambiar preferencias de cookies</a>
+            </div>
+            <ul class="icons">
+                <a href="#"><li><img src="/images/instagram-53.png" alt="Instagram"></li></a>
+                <a href="#"><li><img src="/images/facebook.png" alt="Facebook"></li></a>
+                <a href="#"><li><img src="/images/twitterx--v2.png" alt="Twitter"></li></a>
+                <a href="#"><li><img src="/images/github.png" alt="Github"></li></a> 
+            </ul>
+        </div>
+    </footer>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
+    <script src="/js/multiStepForm.js"></script>
+    <script type="module" src="/js/register.js"></script>
+</body>
+</html>
