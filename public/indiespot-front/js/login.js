@@ -54,7 +54,7 @@ document
 
       if (data.data.user.type == 'admin') {
         localStorage.setItem('device_id_' + email, data.data.session.device_id);
-        window.location.href = '/admin/admin-panel.html';
+        window.location.href = '/admin/list-content.html';
         return;
       }
 

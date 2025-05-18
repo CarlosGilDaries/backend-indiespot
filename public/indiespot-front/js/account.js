@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function () {
       if (data.success) {
         const user = data.user;
         const rol = data.rol;
-        console.log(rol.name);
 
         if (user) {
           const tableBody = document
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             div.appendChild(btn);
 
             btn.addEventListener('click', function () {
-              window.location.href = '/admin/admin-panel.html';
+              window.location.href = '/admin/list-content.html';
             })
           }
 

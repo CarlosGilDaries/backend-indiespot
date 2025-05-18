@@ -1,6 +1,7 @@
 import { formatDuration } from '../modules/formatDuration.js';
 import { deleteForm } from '../modules/deleteForm.js';
-import { activeItems } from '../modules/activeItems.js';
+import { setUpMenuActions } from '../modules/setUpMenuActions.js';
+import { storageData } from '../modules/storageData.js';
 
 async function listContent() {
   const listContent = document.getElementById('list-content');
@@ -11,40 +12,6 @@ async function listContent() {
 
   // Cargar los datos al iniciar
   loadContentList();
-
-  // Escuchar cuando se muestra este contenido
-  document.getElementById('list-content').addEventListener('show', function () {
-    loadContentList();
-  });
-
-  // Función para mostrar/ocultar menús de acciones
-  function setupActionMenus() {
-    document.querySelectorAll('.content-button').forEach((button) => {
-      button.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const menu = this.nextElementSibling;
-        const allMenus = document.querySelectorAll('.actions-menu');
-
-        // Cerrar otros menús abiertos
-        allMenus.forEach((m) => {
-          if (m !== menu) m.style.display = 'none';
-        });
-
-        // Alternar el menú actual
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-
-    // Cerrar menús al hacer clic en cualquier parte del documento
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.actions-menu').forEach((menu) => {
-        menu.style.display = 'none';
-      });
-    });
-  }
-
-  const menuItems = document.querySelectorAll('.admin-menu li');
-  const contentContainers = document.querySelectorAll('.container');
 
   // Función para cargar y mostrar los datos
   async function loadContentList() {
@@ -71,7 +38,10 @@ async function listContent() {
 
       // Generar HTML de la tabla
       let tableHTML = `
-                    <h1><i class="fas fa-film"></i> Lista de Contenido</h1>
+                    <div class="add-button-container">
+                      <h1><i class="fas fa-film"></i> Lista de Contenido</h1>
+                      <a href="/admin/add-content.html" class="add-button add-content">Crear Contenido</a>
+                    </div>
                     <div id="delete-content-success-message" class="success-message" style="margin-bottom: 20px;">
                       ¡Contenido eliminado con éxito!
                   </div>    
@@ -86,6 +56,7 @@ async function listContent() {
                                     <th>Votos</th>
                                     <th>Media</th>
                                     <th>Estreno</th>
+                                    <th>Tipo</th>
                                     <th>Duración</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -114,6 +85,7 @@ async function listContent() {
                             <td>${movie.vote_count}</td>
                             <td>${movie.vote_average}</td>
                             <td>${movie.release_date}</td>
+                            <td>${movie.duration_type_name}</td>
                             <td>${formatDuration(movie.duration)}</td>
                             <td>
                                 <div class="actions-container">
@@ -122,18 +94,14 @@ async function listContent() {
                                         <a href="/${
                                           movie.slug
                                         }" class="">Ver</a>
-                                        <button class="action-item content-action edit-button" data-content="edit-content" data-id="${
+                                        <a href="/admin/edit-content.html" class="action-item content-action edit-button" data-id="${
                                           movie.id
-                                        }" data-slug="${
-          movie.slug
-        }" data-script="/js/admin/editContentForm.js">Editar</button>
-                                        <button class="action-item content-action link-button" data-content="link-content-with-ads" data-id="${
+                                        }" data-slug="${movie.slug}">Editar</a>
+                                        <a href="#" class="action-item content-action link-button" data-id="${
                                           movie.id
                                         }" data-title="${
           movie.title
-        }" data-slug="${
-          movie.slug
-        }" data-script="/js/admin/linkAds.js">Anuncios</button>
+        }" data-slug="${movie.slug}">Vincular</a>
                                         <form class="content-delete-form" data-id="${
                                           movie.id
                                         }">
@@ -160,23 +128,13 @@ async function listContent() {
       // Insertar la tabla en el DOM
       listContent.innerHTML = tableHTML;
 
+      const links = document.querySelectorAll('.action-item');
+      links.forEach((link) => {
+        link.addEventListener('click', storageData);
+      });
+
       // Configurar los menús de acciones
-      setupActionMenus();
-
-      // Añadir event listeners para los botones de acción
-      document.querySelectorAll('.edit-button').forEach((btn) => {
-        btn.addEventListener(
-          'click',
-          activeItems.bind(btn, menuItems, contentContainers)
-        );
-      });
-
-      document.querySelectorAll('.link-button').forEach((btn) => {
-        btn.addEventListener(
-          'click',
-          activeItems.bind(btn, menuItems, contentContainers)
-        );
-      });
+      setUpMenuActions();
 
       const message = document.getElementById('delete-content-success-message');
       deleteForm(authToken, '.content-delete-form', backendDeleteApi, message);

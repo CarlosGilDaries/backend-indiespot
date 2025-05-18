@@ -1,5 +1,6 @@
 import { deleteForm } from '../modules/deleteForm.js';
-import { activeItems } from '../modules/activeItems.js';
+import { setUpMenuActions } from '../modules/setUpMenuActions.js';
+import { storageData } from '../modules/storageData.js';
 
 async function listGenders() {
   const listContent = document.getElementById('list-genders');
@@ -10,40 +11,6 @@ async function listGenders() {
 
   // Cargar los datos al iniciar
   loadGendersList();
-
-  // Escuchar cuando se muestra este contenido
-  document.getElementById('list-genders').addEventListener('show', function () {
-    loadGendersList();
-  });
-
-  // Función para mostrar/ocultar menús de acciones
-  function setupActionMenus() {
-    document.querySelectorAll('.genders-button').forEach((button) => {
-      button.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const menu = this.nextElementSibling;
-        const allMenus = document.querySelectorAll('.actions-menu');
-
-        // Cerrar otros menús abiertos
-        allMenus.forEach((m) => {
-          if (m !== menu) m.style.display = 'none';
-        });
-
-        // Alternar el menú actual
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-
-    // Cerrar menús al hacer clic en cualquier parte del documento
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.actions-menu').forEach((menu) => {
-        menu.style.display = 'none';
-      });
-    });
-  }
-
-  const menuItems = document.querySelectorAll('.admin-menu li');
-  const contentContainers = document.querySelectorAll('.container');
 
   // Función para cargar y mostrar los datos
   async function loadGendersList() {
@@ -67,7 +34,7 @@ async function listGenders() {
       let tableHTML = `
 					<div class="add-button-container">
 						<h1><i class="fas fa-rocket"></i> Lista de Géneros</h1>
-						<button class="add-button add-genders" data-content="add-gender" data-script="/js/admin/addGender.js">Añadir Género</button>
+						<a href="/admin/add-gender.html" class="add-button add-content">Crear Género</a>
 					</div>
                     <div id="delete-gender-success-message" class="success-message" style="margin-bottom: 20px;">
                       ¡Género eliminado con éxito!
@@ -93,7 +60,7 @@ async function listGenders() {
                             <div class="actions-container">
                                 <button class="actions-button genders-button">Acciones</button>
                                 <div class="actions-menu">
-                                    <button class="action-item edit-button gender-action" data-content="edit-gender" data-id="${gender.id}" data-script="/js/admin/editGenderForm.js">Editar</button>
+                                  <a href="/admin/edit-gender.html" class="action-item edit-button gender-action" data-id="${gender.id}">Editar</a>
                                     <form class="gender-delete-form" data-id="${gender.id}">
                                     <input type="hidden" name="gender_id" value="${gender.id}">
                                     <button class="action-item content-action delete-btn" type="submit">Eliminar</button>
@@ -114,22 +81,13 @@ async function listGenders() {
       // Insertar la tabla en el DOM
       listContent.innerHTML = tableHTML;
 
-      // Configurar los menús de acciones
-      setupActionMenus();
-
-      // Añadir event listeners para los botones de acción
-      document.querySelectorAll('.edit-button').forEach((btn) => {
-        btn.addEventListener(
-          'click',
-          activeItems.bind(btn, menuItems, contentContainers)
-        );
+      const links = document.querySelectorAll('.action-item');
+      links.forEach((link) => {
+        link.addEventListener('click', storageData);
       });
 
-      document
-        .querySelector('.add-genders')
-        .addEventListener('click', function () {
-          activeItems.call(this, menuItems, contentContainers);
-        });
+      // Configurar los menús de acciones
+      setUpMenuActions();
 
       const message = document.getElementById('delete-gender-success-message');
       deleteForm(authToken, '.gender-delete-form', backendDeleteApi, message);

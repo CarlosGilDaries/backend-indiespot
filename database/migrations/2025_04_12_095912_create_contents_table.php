@@ -16,14 +16,15 @@ return new class extends Migration
             $table->string('title');
             $table->string('overview');
             $table->string('tagline');
-            $table->string('trailer');
+            $table->string('trailer')->nullable();
             $table->string('cover')->nullable();
             $table->date('release_date');
             $table->integer('vote_count');
             $table->decimal('vote_average', 5, 2); 
             $table->enum('type', ['video/mp4', 'application/vnd.apple.mpegurl']);
-            $table->enum('duration', ['short', 'medium', 'large']);
-            $table->foreignId('gender_id')->constrained()->onDelete('cascade');
+            $table->time('duration')->nullable();
+            $table->enum('duration_type_name', ['cortometraje', 'mediometraje', 'largometraje']);
+            $table->foreignId('gender_id')->constrained();
             $table->string('url');
             $table->string('slug')->unique();
             $table->timestamps();

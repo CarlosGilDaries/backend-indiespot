@@ -1,5 +1,6 @@
 import { deleteForm } from '../modules/deleteForm.js';
-import { activeItems } from '../modules/activeItems.js';
+import { setUpMenuActions } from '../modules/setUpMenuActions.js';
+import { storageData } from '../modules/storageData.js';
 
 async function listRols() {
   const listContent = document.getElementById('list-rols');
@@ -10,40 +11,6 @@ async function listRols() {
 
   // Cargar los datos al iniciar
   loadRolsList();
-
-  // Escuchar cuando se muestra este contenido
-  document.getElementById('list-rols').addEventListener('show', function () {
-    loadRolsList();
-  });
-
-  // Función para mostrar/ocultar menús de acciones
-  function setupActionMenus() {
-    document.querySelectorAll('.rols-button').forEach((button) => {
-      button.addEventListener('click', function (e) {
-        e.stopPropagation();
-        const menu = this.nextElementSibling;
-        const allMenus = document.querySelectorAll('.actions-menu');
-
-        // Cerrar otros menús abiertos
-        allMenus.forEach((m) => {
-          if (m !== menu) m.style.display = 'none';
-        });
-
-        // Alternar el menú actual
-        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-
-    // Cerrar menús al hacer clic en cualquier parte del documento
-    document.addEventListener('click', function () {
-      document.querySelectorAll('.actions-menu').forEach((menu) => {
-        menu.style.display = 'none';
-      });
-    });
-  }
-
-  const menuItems = document.querySelectorAll('.admin-menu li');
-  const contentContainers = document.querySelectorAll('.container');
 
   // Función para cargar y mostrar los datos
   async function loadRolsList() {
@@ -66,8 +33,8 @@ async function listRols() {
       // Generar HTML de la tabla
       let tableHTML = `
                     <div class="add-button-container">
-                        <h1><i class="fas fa-rocket"></i> Lista de Roles</h1>
-                        <button class="add-button add-rols" data-content="add-rol" data-script="/js/admin/addRol.js">Añadir Rol</button>
+                        <h1><i class="fa-solid fa-clapperboard"></i> Lista de Roles</h1>
+                        <a href="/admin/add-rol.html" class="add-button add-content">Crear Rol</a>
                     </div>
                     <div id="delete-rol-success-message" class="success-message" style="margin-bottom: 20px;">
                       ¡Rol eliminado con éxito!
@@ -93,7 +60,7 @@ async function listRols() {
                             <div class="actions-container">
                                 <button class="actions-button rols-button">Acciones</button>
                                 <div class="actions-menu">
-                                    <button class="action-item edit-button rol-action" data-content="edit-rol" data-id="${rol.id}" data-script="/js/admin/editRolForm.js">Editar</button>
+                                     <a href="/admin/edit-rol.html" class="action-item edit-button rol-action" data-id="${rol.id}">Editar</a>
                                     <form class="rol-delete-form" data-id="${rol.id}">
                                     <input type="hidden" name="rol_id" value="${rol.id}">
                                     <button class="action-item content-action delete-btn" type="submit">Eliminar</button>
@@ -114,22 +81,13 @@ async function listRols() {
       // Insertar la tabla en el DOM
       listContent.innerHTML = tableHTML;
 
-      // Configurar los menús de acciones
-      setupActionMenus();
-
-      // Añadir event listeners para los botones de acción
-      document.querySelectorAll('.edit-button').forEach((btn) => {
-        btn.addEventListener(
-          'click',
-          activeItems.bind(btn, menuItems, contentContainers)
-        );
+      const links = document.querySelectorAll('.action-item');
+      links.forEach((link) => {
+        link.addEventListener('click', storageData);
       });
 
-      document
-        .querySelector('.add-rols')
-        .addEventListener('click', function () {
-          activeItems.call(this, menuItems, contentContainers);
-        });
+      // Configurar los menús de acciones
+      setUpMenuActions();
 
       const message = document.getElementById('delete-rol-success-message');
       deleteForm(authToken, '.rol-delete-form', backendDeleteApi, message);
