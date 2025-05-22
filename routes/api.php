@@ -30,15 +30,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('users', [Usercontroller::class, 'index']);
     Route::get('users/{id}', [UserController::class, 'show']);
     Route::get('current-user', [UserController::class, 'getCurrentUser']);
+    Route::post('edit-user/{id}', [UserController::class, 'update']);
+    Route::delete('delete-user/', [UserController::class, 'destroy']);
 
     //Route::get('content', [ContentController::class, 'index']);
     Route::get('content/{slug}', [ContentController::class, 'show']);
     Route::get('edit-view-content/{id}', [ContentController::class, 'editShow']);
     Route::post('add-content', [ContentController::class, 'store']);
     Route::post('update-content/{id}', [ContentController::class, 'update']);
-    Route::get('{slug}/rol-users', [ContentRolUserController::class, 'show']);
-    Route::post('link-users-with-content', [ContentRolUserController::class, 'store']);
     Route::delete('delete-content', [ContentController::class, 'destroy']);
+
+    Route::post('link-users-with-content', [ContentRolUserController::class, 'store']);
+    Route::post('unlink-user', [ContentRolUserController::class, 'destroy']);
 
     Route::get('favorites', [ContentUserController::class, 'show']);
     Route::post('{slug}/add-to-favorites', [ContentUserController::class, 'store']);

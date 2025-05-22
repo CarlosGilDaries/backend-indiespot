@@ -65,8 +65,7 @@ class User extends Authenticatable
     
     public function rol()
     {
-    return $this->belongsTo(Rol::class/*, 'content_user_rol'*/);
-                   //->withPivot('content_id');
+        return $this->belongsTo(Rol::class);
     }
     
     // Contenidos favoritos

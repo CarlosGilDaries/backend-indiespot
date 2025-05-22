@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/show.css">
     <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
-    <title>IndieSpot</title>
 </head>
 <body>
 
     <aside class="background-banner">
-        <video muted autoplay loop poster="">
-            <source src="video/background-loop.mp4" type="video/mp4">
+        <video muted autoplay loop poster="" id="trailer">
+            <source src="" type="video/mp4">
             <img src="images/back-image.jpg" alt="Background image">
         </video>
 
@@ -34,26 +33,16 @@
                     </ul>
                 </nav>
             </div>
-            <div class="blank">
-                
-            </div>
+
             <div class="content-banner">
-                <h1>Título</h1>
+                <div id ="content-container">
+                    <img id="content-image">
+                    <h1 id="content-title"></h1>
+                </div>
                 <button class="play-button">Ver Ahora</button>
             </div>
         </div>
     </aside>
-
-    <main class="index-main">
-        <section class="content-type">
-            <h2>Contenido en vídeo</h2>
-            <div class="content-wrapper">
-                <button class="scroll-left hidden">&lt;</button>
-                <div id="video-content" class="content-container"></div>
-                <button class="scroll-right hidden">&gt;</button>
-            </div>
-        </section>
-    </main>
 
     <footer class="footer">
         <div class="footer-container">
@@ -71,6 +60,6 @@
         </div>
     </footer>
 
-    <script type="module" src="/js/index.js"></script>
+    <script type="module" src="/js/show.js"></script>
 </body>
 </html>

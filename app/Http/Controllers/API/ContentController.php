@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
@@ -148,7 +147,7 @@ class ContentController extends Controller
     public function show($slug)
     {
         try {
-            $movie = Content::where('slug', $slug)->first();
+            $movie = Content::where('slug', $slug)->with(['users.rol'])->first();
 
             if (!$movie) {
                 return response()->json([

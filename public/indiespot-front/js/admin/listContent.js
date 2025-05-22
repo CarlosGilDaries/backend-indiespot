@@ -97,7 +97,7 @@ async function listContent() {
                                         <a href="/admin/edit-content.html" class="action-item content-action edit-button" data-id="${
                                           movie.id
                                         }" data-slug="${movie.slug}">Editar</a>
-                                        <a href="#" class="action-item content-action link-button" data-id="${
+                                        <a href="/admin/link-users-with-content.html" class="action-item content-action link-button" data-id="${
                                           movie.id
                                         }" data-title="${
           movie.title

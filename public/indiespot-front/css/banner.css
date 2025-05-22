@@ -30,16 +30,42 @@
     color: #ddd;
 }
 
-.content-banner button {
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    padding: 10px;
-    cursor: pointer;
-    border: 1px solid white;
-    background-color: white;
+.play-button {
+	position: relative;
+	padding: 16px 42px;
+	border-radius: 10px;
+	background: linear-gradient(135deg, #6e8efb, #a777e3);
+	color: white;
+	font-size: 18px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	border: none;
+	cursor: pointer;
+	overflow: hidden;
+	box-shadow: 0 8px 20px rgba(103, 78, 212, 0.3);
+	transition: all 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
 }
 
-.content-banner button:hover {
-    filter: brightness(0.9);
+.play-button:hover {
+	filter: brightness(0.9);
+	box-shadow: 0 12px 25px rgba(103, 78, 212, 0.4);
+}
+
+.play-button:hover::before {
+	transform: translateX(100%);
+}
+
+.play-button::after {
+	content: "▶";
+	font-size: 14px;
+	transition: transform 0.2s ease;
+}
+
+.play-button:hover::after {
+	transform: scale(1.2);
 }

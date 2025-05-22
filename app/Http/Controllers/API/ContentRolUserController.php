@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Models\Content;
+use App\Models\User;
 
 class ContentRolUserController extends Controller
 {
@@ -25,10 +25,11 @@ class ContentRolUserController extends Controller
     {
         try {
             foreach($request->users as $user) {
+                $bdUser = User::where('id', $user['id'])->first();
                 DB::table('content_rol_user')->insert([
                     'content_id' => $request->content_id,
                     'user_id' => $user['id'],
-                    'rol_id' => $user['rol_id'],                   
+                    'rol_id' => $bdUser->rol->id,                   
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -54,40 +55,7 @@ class ContentRolUserController extends Controller
      */
     public function show($slug)
     {
-        try {
-            $content = Content::where('slug', $slug)->firstOrFail();
-            $actors = $content->usersWithRol(1)->get();
-            $directors = $content->usersWithRol(2)->get();
-            $productors = $content->usersWithRol(3)->get();
-            $photo_directors = $content->usersWithRol(4)->get();
-            $screenwriter = $content->usersWithRol(5)->get();
-            $operators = $content->usersWithRol(6)->get();
-            $sound_engineers = $content->usersWithRol(7)->get();
-            $editors = $content->usersWithRol(8)->get();
 
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'actors' => $actors,
-                    'directors' => $directors,
-                    'productors' => $productors,
-                    'photo_directors' => $photo_directors,
-                    'screenwriter' => $screenwriter,
-                    'operators' => $operators,
-                    'sound_engineers' => $sound_engineers,
-                    'editors' => $editors
-                ],
-                'message' => 'Usuarios con roles en el contenido obtenidos con éxito.'
-            ],200);
-
-        } catch (\Exception $e) {
-            Log::error('Error: ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage(),
-            ], 500);
-        }
     }
 
     /**
@@ -101,8 +69,29 @@ class ContentRolUserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $movieId = $request->input('content_id');
+            $userId = $request->input('user_id');
+            
+            DB::table('content_rol_user')
+                ->where('content_id', $movieId)
+                ->where('user_id', $userId)
+                ->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Usuario desvinculado con éxito'
+            ], 200);
+
+        } catch(\Exception $e) {
+            Log::error('Error al eliminar el usuario: ' . $e->getMessage());
+            
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 }

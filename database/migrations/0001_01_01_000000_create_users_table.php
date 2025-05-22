@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('type', ['user', 'admin']);
             $table->string('curriculum')->nullable();
             $table->string('portfolio')->nullable();
-            $table->foreignId('rol_id')->constrained()->onDelete('cascade');
+            $table->foreignId('rol_id')->constrained();
             $table->rememberToken();
             $table->timestamps();
         });

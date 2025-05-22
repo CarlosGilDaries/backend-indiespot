@@ -3,6 +3,7 @@
 @import '/css/footer.css';
 @import '/css/admin/addForm.css';
 @import '/css/admin/list-content.css';
+@import '/css/link-users-with-content.css';
 
 .menu {
     width: 100%;

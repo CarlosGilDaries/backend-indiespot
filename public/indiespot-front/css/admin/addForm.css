@@ -89,7 +89,7 @@ textarea {
 .success-message {
     color: #4caf50;
     font-size: 1rem;
-    margin-top: 1rem;
+    margin-block: 1rem;
     text-align: center;
     padding: 1rem;
     background-color: rgba(76, 175, 80, 0.1);

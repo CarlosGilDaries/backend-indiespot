@@ -18,11 +18,11 @@
 .icons li {
     width: 30px;
     height: 30px;
-	transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease;
 }
 
 .icons li:hover {
-    transform: scale(115%);
+    transform: scale(1.1);
 }
 
 .info {
@@ -38,13 +38,13 @@
 .info a:nth-child(1),
 .info a:nth-child(2),
 .info a:nth-child(3) {
-	transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease;
 }
 
 .info a:nth-child(1):hover,
 .info a:nth-child(2):hover,
 .info a:nth-child(3):hover {
-    transform: scale(105%);
+    transform: scale(1.1);
 }
 
 @media (min-width: 992px) {

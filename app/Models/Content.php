@@ -16,8 +16,9 @@ class Content extends Model
         'vote_count',
         'vote_average',
         'type',
-        'principal_gender_id',
+        'gender_id',
         'duration',
+        'duration_type_name',
         'url',
         'slug',
     ];
@@ -31,17 +32,5 @@ class Content extends Model
     {
         return $this->belongsToMany(User::class, 'content_rol_user')
                    ->withPivot('rol_id');
-    }
-    
-    public function rols()
-    {
-        return $this->belongsToMany(Rol::class, 'content_user_rol')
-                   ->withPivot('user_id');
-    }
-    
-    // Método para obtener usuarios con un rol específico en este contenido
-    public function usersWithRol($rolId)
-    {
-        return $this->users()->wherePivot('rol_id', $rolId);
     }
 }

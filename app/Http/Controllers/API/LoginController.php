@@ -18,27 +18,25 @@ class LoginController extends Controller
         public function register(Request $request)
     {
         try {
-            $email = $request->input('email');
-
+            $user = new User();
             $curriculum = $request->file('curriculum');
+            $user->name = $request->input('name');
+            $user->surnames = $request->input('surnames');
+            $user->email = $request->input('email');
+            $user->type = 'user';
+            $user->portfolio = $request->input('portfolio') ?? null;
+            $user->rol_id = $request->input('rol');
+            $user->password = Hash::make($request->password);
+
+            $user->save();
+
             if ($curriculum) {
                 $cvExtension = $curriculum->getClientOriginalExtension();
-                $cvUrl = '/file/' . $email . '/' . $email . '-cv.' . $cvExtension;
-                $curriculum->storeAs('users/' . $email, $email . '-cv.' . $cvExtension, 'private');
+                $user->curriculum = '/file/user-' . $user->id . '/user-' . $user->id . '-cv.' . $cvExtension;
+                $curriculum->storeAs('users/user-' . $user->id, '/user-' . $user->id . '-cv.' . $cvExtension, 'private');
             }
 
-            $user = User::create([
-                        'name' => $request->input('name'),
-                        'surnames' => $request->input('surnames'),
-                        'email' => $request->input('email'),
-                        'type' => 'user',
-                        'curriculum' => $cvUrl ?? null,
-                        'portfolio' => $request->input('portfolio') ?? null,
-                        'rol_id' => $request->input('rol'),
-                        'password' => Hash::make($request->password),
-                    ]);
-
-            //$device_id = Hash::make(Str::uuid());
+            $user->save();
 
             $token = $user->createToken($request->email)->plainTextToken;
 

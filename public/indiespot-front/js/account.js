@@ -51,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function () {
               !['email_verified_at', 'created_at', 'updated_at'].includes(key)
             ) {
               if (fieldsToDisplay[key]) {
+                if (key == 'curriculum') {
+                  console.log(value);
+                }
                 // Solo mostrar los campos que están en fieldsToDisplay
                 const row = tableBody.insertRow();
                 const cell1 = row.insertCell(0);
