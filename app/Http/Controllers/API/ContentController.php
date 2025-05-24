@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use DataTables;
 
 class ContentController extends Controller
 {
@@ -37,6 +38,52 @@ class ContentController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function datatable()
+    {
+        try {
+            $movies = Content::with('gender')->get();
+
+			return DataTables::of($movies)
+                ->addColumn('id', function($movie) {
+                    return $movie->id;
+                })
+				->addColumn('title', function($movie) {
+					return $movie->title;
+				})
+				->addColumn('cover', function($movie) {
+					return $movie->cover;
+				})
+				->addColumn('gender', function($movie) {
+					return $movie->gender->name;
+				})
+				->addColumn('type', function($movie) {
+					return $movie->vote_count;
+				})
+				->addColumn('pay_per_view', function($movie) {
+					return $movie->vote_average;
+				})
+				->addColumn('duration_type_name', function($movie) {
+					return $movie->duration_type_name;
+				})
+                ->addColumn('duration', function($movie) {
+					return $movie->duration;
+				})
+				->addColumn('actions', function($movie) {
+					return $this->getActionButtons($movie);
+				})
+				->rawColumns(['actions'])
+				->make(true);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
             ], 500);
         }
     }
@@ -260,7 +307,7 @@ class ContentController extends Controller
 
             $trailer = $request->file('trailer');
             if ($trailer) {
-                Storage::disk('private')->delete('content/' . $movie->slug . '/' . $movie->slug  . '-trailer.mp4');
+                //Storage::disk('private')->delete('content/' . $movie->slug . '/' . $movie->slug  . '-trailer.mp4');
                 $trailerExtension = $trailer->getClientOriginalExtension();
                 $movie->trailer = '/file/' . $movie->slug . '/' . $movie->slug . '-trailer.' . $trailerExtension;
                 $trailer->storeAs('content/' . $movie->slug, $movie->slug . '-trailer.' . $trailerExtension, 'private');
@@ -382,5 +429,26 @@ class ContentController extends Controller
 				'message' => 'Error: ' . $e->getMessage(),
 			], 500);
 		}
+	}
+
+    private function getActionButtons($movie)
+	{
+		$id = $movie->id;
+        $slug = $movie->slug;
+        $title = $movie->title;
+
+		return '
+			<div class="actions-container">
+				<button class="actions-button">Acciones</button>
+				<div class="actions-menu">
+                <a href="/content/' . $slug . '" class="action-item">Ver</a>
+					<a href="/admin/edit-content.html" class="action-item content-action edit-button" data-id="'.$id.'" data-slug="'.$slug.'">Editar</a>
+					<a href="/admin/link-users-with-content.html" class="action-item content-action link-button" data-id="'.$id.'" data-title="'.$title.'" data-slug="'.$slug.'">Vincular</a>
+                    <form class="content-delete-form" data-id="' . $id . '">
+						<input type="hidden" name="content_id" value="' . $id . '">
+						<button class="action-item content-action delete-btn" type="submit">Eliminar</button>
+					</form>
+				</div>
+			</div>';
 	}
 }

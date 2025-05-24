@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use DataTables;
 
 class RolController extends Controller
 {
@@ -22,6 +23,34 @@ class RolController extends Controller
                 'rols' => $rols,
                 'message' => 'Roles obtenidos con éxito.'
             ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function datatable()
+    {
+        try {
+            $rols = Rol::all();
+
+			return DataTables::of($rols)
+				->addColumn('id', function($rol) {
+					return $rol->id;
+				})
+				->addColumn('name', function($rol) {
+					return $rol->name;
+				})
+				->addColumn('actions', function($rol) {
+					return $this->getActionButtons($rol);
+				})
+				->rawColumns(['actions'])
+				->make(true);
 
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
@@ -137,4 +166,21 @@ class RolController extends Controller
             ], 500);
         }
     }
+
+    private function getActionButtons($rol)
+	{
+		$id = $rol->id;
+
+		return '
+			<div class="actions-container">
+				<button class="actions-button orders-button">Acciones</button>
+				<div class="actions-menu">
+					<a href="/admin/edit-rol.html" class="action-item content-action edit-button" data-id="'.$id.'">Editar</a>
+                    <form class="rol-delete-form" data-id="' . $id . '">
+						<input type="hidden" name="content_id" value="' . $id . '">
+						<button class="action-item content-action delete-btn" type="submit">Eliminar</button>
+					</form>
+				</div>
+			</div>';
+	}
 }

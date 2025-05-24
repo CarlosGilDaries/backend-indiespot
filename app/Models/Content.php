@@ -23,9 +23,9 @@ class Content extends Model
         'slug',
     ];
 
-    public function genders()
+    public function gender()
     {
-        return $this->belongsToMany(Gender::class);
+        return $this->belongsTo(Gender::class);
     }
 
     public function users()

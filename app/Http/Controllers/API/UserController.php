@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -35,13 +36,48 @@ class UserController extends Controller
         }
     }
 
+    public function datatable()
+    {
+        try {
+            $users = User::all();
+
+			return DataTables::of($users)
+				->addColumn('id', function($user) {
+					return $user->id;
+				})
+				->addColumn('complete_name', function($user) {
+					return $user->name . ' ' . $user->surnames;
+				})
+                ->addColumn('email', function($user) {
+					return $user->email;
+				})
+                ->addColumn('rol', function($user) {
+					return $user->rol->name;
+				})
+				->addColumn('actions', function($user) {
+					return $this->getActionButtons($user);
+				})
+				->rawColumns(['actions'])
+				->make(true);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         try {
-            $user = User::where('id', $id)->first();
+            $user = User::with('rol')->where('id', $id)->first();
             $content = $user->contents()->get();
 
             return response()->json([
@@ -95,8 +131,9 @@ class UserController extends Controller
             $curriculum = $request->file('curriculum');
             if ($curriculum) {
                 $cvExtension = $curriculum->getClientOriginalExtension();
-                Storage::disk('private')->delete('users/user-' . $user->id, '/user-' . $user->id . '-cv.' . $cvExtension, 'private');
-                $curriculum->storeAs('users/user-' . $user->id, '/user-' . $user->id . '-cv.' . $cvExtension, 'private');
+                $user->curriculum = '/file/user-' . $user->id . '/user-' . $user->id . '-cv.' . $cvExtension;
+                Storage::disk('private')->delete('users/user-' . $user->id . '/user-' . $user->id . '-cv.' . $cvExtension);
+                $curriculum->storeAs('users/user-' . $user->id, 'user-' . $user->id . '-cv.' . $cvExtension, 'private');
             }
             $user->name = $request->input('name');
             $user->surnames = $request->input('surnames');
@@ -148,4 +185,21 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    private function getActionButtons($user)
+	{
+		$id = $user->id;
+
+		return '
+			<div class="actions-container">
+				<button class="actions-button orders-button">Acciones</button>
+				<div class="actions-menu">
+					<a href="/admin/edit-user.html" class="action-item content-action edit-button" data-id="'.$id.'">Editar</a>
+                    <form class="user-delete-form" data-id="' . $id . '">
+						<input type="hidden" name="content_id" value="' . $id . '">
+						<button class="action-item content-action delete-btn" type="submit">Eliminar</button>
+					</form>
+				</div>
+			</div>';
+	}
 }

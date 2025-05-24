@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Nuevo Dispositivo</title>
+</head>
+<body>
+
+    <div class="menu">
+        <nav>
+            <ul class="nav left-nav">
+                <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section>
+        <div class="login-box new-device-box">
+            <form id="new-device-form">
+                <h2>Nuevo dispositivo</h2>
+                <div class="input-box">
+                    <span class="icon">
+                        <ion-icon name="laptop-outline"></ion-icon>
+                    </span>
+                    <input type="text" id="device_name" required>
+                    <label>Nombre del dispostivo</label>
+                </div>
+                <input type="hidden" id="user_id" value="">
+                <input type="hidden" id="device_id" value="">
+                <input type="hidden" id="ip" value="">
+                <input type="hidden" id="userAgent" value="">
+                <button type="submit">Añadir dispositivo</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="info">
+                <a href="#">Centro de ayuda</a>
+                <a href="#">¿Quiénes somos?</a>
+                <a href="#">Cambiar preferencias de cookies</a>
+            </div>
+            <ul class="icons">
+                <a href="#"><li><img src="/images/instagram-53.png" alt="Instagram"></li></a>
+                <a href="#"><li><img src="/images/facebook.png" alt="Facebook"></li></a>
+                <a href="#"><li><img src="/images/twitterx--v2.png" alt="Twitter"></li></a>
+                <a href="#"><li><img src="/images/github.png" alt="Github"></li></a> 
+            </ul>
+        </div>
+    </footer>
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@latest/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="/js/newDevice.js"></script>
+</body>
+</html>

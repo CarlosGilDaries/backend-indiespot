@@ -21,6 +21,12 @@ Route::get('content', [ContentController::class, 'index']);
 Route::get('rols', [RolController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('content/datatable', [ContentController::class, 'datatable']);
+    Route::get('genders/datatable', [GenderController::class, 'datatable']);
+    Route::get('users/datatable', [UserController::class, 'datatable']);
+    Route::get('rols/datatable', [RolController::class, 'datatable']);
+    Route::get('unlinked-users/{movieId}/datatable', [ContentRolUserController::class, 'datatable']);
+
     Route::get('manage-devices', [UserSessionController::class, 'index']);
     Route::delete('destroy-device' , [UserSessionController::class, 'destroy']);
     Route::post('new-device', [UserSessionController::class, 'store']);

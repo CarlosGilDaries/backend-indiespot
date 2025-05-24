@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('overview');
-            $table->string('tagline');
+            $table->string('overview', 1000);
+            $table->string('tagline', 500);
             $table->string('trailer')->nullable();
             $table->string('cover')->nullable();
             $table->date('release_date');

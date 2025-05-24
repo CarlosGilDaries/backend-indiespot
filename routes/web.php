@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Route::get('/file/{path}', function ($path) {
     $filePathMovie = "content/{$path}";
@@ -20,4 +20,4 @@ Route::get('/file/{path}', function ($path) {
     }
 
     abort(404);
-})->where('path', '[a-zA-Z0-9\/\-_.@]+');
+})->where('path', '.*');

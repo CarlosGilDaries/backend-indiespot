@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Rol;
+use DataTables;
 
 class ContentRolUserController extends Controller
 {
@@ -16,6 +18,50 @@ class ContentRolUserController extends Controller
     public function index()
     {
 
+    }
+
+    public function datatable($id)
+    {
+        try {
+            $linked_users_ids = DB::table('content_rol_user')
+                ->where('content_id', $id)
+                ->pluck('user_id');
+
+            $user_rol = Rol::where('name', 'Usuario/a')->first();
+
+            $users = User::with('rol')
+                ->whereNotIn('id', $linked_users_ids)
+                ->where('type', '!=', 'admin')
+                ->where('rol_id', '!=', $user_rol->id)
+                ->get();
+
+			return DataTables::of($users)
+				->addColumn('complete_name', function($user) {
+					return $user->name . ' ' . $user->surnames;
+				})
+                ->addColumn('rol', function($user) {
+					return $user->rol->name;
+				})
+                ->addColumn('email', function($user) {
+					return $user->email;
+				})
+                ->addColumn('curriculum', function($user) {
+					return $user->curriculum;
+				})
+				->addColumn('actions', function($user) {
+					return '<button class="actions-button">Añadir</button>';
+				})
+				->rawColumns(['actions'])
+				->make(true);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**

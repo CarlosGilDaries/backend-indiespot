@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Gender;
 //use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use DataTables;
 
 class GenderController extends Controller
 {
@@ -20,6 +21,34 @@ class GenderController extends Controller
             'genders' => $genders,
             'message' => 'Planes obtenidos con éxito.',
         ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function datatable()
+    {
+        try {
+            $genders = Gender::all();
+
+			return DataTables::of($genders)
+				->addColumn('id', function($gender) {
+					return $gender->id;
+				})
+				->addColumn('name', function($gender) {
+					return $gender->name;
+				})
+				->addColumn('actions', function($gender) {
+					return $this->getActionButtons($gender);
+				})
+				->rawColumns(['actions'])
+				->make(true);
 
         } catch (\Exception $e) {
             Log::error('Error: ' . $e->getMessage());
@@ -136,4 +165,21 @@ class GenderController extends Controller
             ], 500);
         }
     }
+
+    private function getActionButtons($gender)
+	{
+		$id = $gender->id;
+
+		return '
+			<div class="actions-container">
+				<button class="actions-button orders-button">Acciones</button>
+				<div class="actions-menu">
+					<a href="/admin/edit-gender.html" class="action-item content-action edit-button" data-id="'.$id.'">Editar</a>
+                    <form class="gender-delete-form" data-id="' . $id . '">
+						<input type="hidden" name="content_id" value="' . $id . '">
+						<button class="action-item content-action delete-btn" type="submit">Eliminar</button>
+					</form>
+				</div>
+			</div>';
+	}
 }

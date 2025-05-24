@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/admin/admin.css">
+    <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <div class="menu">
+        <nav>
+            <ul class="nav left-nav">
+                <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
+            </ul>
+        </nav>
+        <nav>
+            <ul class="nav right-nav">
+                <a id="logout-button"><button class="login-btn">Cerrar sesión</button></a>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="admin-container">
+
+        <aside class="admin-sidebar">
+            <ul class="admin-menu">
+                <li class="links" data-content="list-content">
+                    <i class="fas fa-film"></i>
+                    <span>Contenido</span>
+                </li>
+                <li class="links" data-content="list-genders">
+                    <i class="fa-solid fa-rocket"></i>
+                    <span>Géneros</span>
+                </li>
+                <li class="links active" data-content="list-users">
+                    <i class="fas fa-user"></i>
+                    <span>Usuarios</span>
+                </li>
+                <li class="links" data-content="list-rols">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Roles</span>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="admin-main">
+            <div id="content-area">
+                
+				<div class="container" id="add-user">
+					<!-- Añadir Usuario -->
+					<h1><i class="fas fa-user"></i> Añadir Usuario</h1>
+					<div id="add-user-success-message" class="success-message">
+						Usuario añadido con éxito
+					</div>
+					<form id="add-user-form">
+						<div class="form-group">
+							<label for="add-user-name">Nombre</label>
+							<input type="text" id="add-user-name" name="name" required>
+							<div id="add-user-name-error" class="error-message"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="add-user-surnames">Apellidos</label>
+							<input type="text" id="add-user-surnames" name="name" required>
+							<div id="add-user-surnames-error" class="error-message"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="add-user-email">Email</label>
+							<input type="email" id="add-user-email" name="email" required>
+							<div id="add-user-email-error" class="error-message"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="add-user-rol">Rol</label>
+                            <select id="add-user-rol" required>
+                                <option value="" disabled selected>Seleccione un rol</option>
+                            </select>
+							<div id="add-user-rol-error" class="error-message"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="add-user-portfolio">Url Portfolio (Opcional)</label>
+                            <input type="text" id="add-user-portfolio" required>
+							<div id="add-user-portfolio-error" class="error-message"></div>
+						</div>
+
+                        <div class="form-group">
+                            <label for="add-user-curriculum">Curriculum (PDF Opcional)</label>
+                            <div class="file-input-container">
+                                <label class="file-input-label" for="add-user-curriculum">
+                                    <i class="fas fa-image"></i>
+                                    <span id="curriculum-label-text">Seleccionar archivo...</span>
+                                </label>
+                                <input type="file" id="add-user-curriculum" name="curriculum" class="file-input" accept="application/pdf">
+                                <div id="curriculum-name" class="file-name"></div>
+                            </div>
+                            <div id="add-user-curriculum-error" class="error-message"></div>
+                        </div>
+
+						<div class="form-group">
+							<label for="add-user-password">Contraseña</label>
+							<input type="password" id="add-user-password" name="password" required>
+							<div id="add-user-password-error" class="error-message"></div>
+						</div>
+
+						<div class="form-group">
+							<label for="add-user-password-confirmation">Confirmar Contraseña</label>
+							<input type="password" id="add-user-password-confirmation" name="password_confirmation" required>
+							<div id="add-user-password-confirmation-error" class="error-message"></div>
+						</div>
+
+						<div class="loading" id="add-user-loading">
+							<div class="loading-spinner"></div>
+							<p>Añadiendo usuario, por favor espere...</p>
+						</div>
+
+						<button type="submit" class="btn">
+							<i class="fas fa-upload"></i> Añadir Usuario
+						</button>
+					</form>
+				</div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="info">
+                <a href="#">Centro de ayuda</a>
+                <a href="#">¿Quiénes somos?</a>
+                <a href="#">Cambiar preferencias de cookies</a>
+            </div>
+            <ul class="icons">
+                <a href="#"><li><img src="/images/instagram-53.png" alt="Instagram"></li></a>
+                <a href="#"><li><img src="/images/facebook.png" alt="Facebook"></li></a>
+                <a href="#"><li><img src="/images/twitterx--v2.png" alt="Twitter"></li></a>
+                <a href="#"><li><img src="/images/github.png" alt="Github"></li></a> 
+            </ul>
+        </div>
+    </footer>
+
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script type="module" src="/js/admin/admin.js"></script>
+    <script type="module" src="/js/admin/addUser.js"></script>
+</body>
+</html>
