@@ -77,10 +77,25 @@ async function listUsers() {
                     <div class="user-name">${user.name} ${user.surnames}</div>
                     <div class="user-role">${user.rol}</div>
                 </div>
+                <button class="unselect-btn" data-user-id="${user.id}"">Quitar</button>
             </div>
         `
             )
             .join("");
+        
+            document.querySelectorAll(".unselect-btn").forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                    const userId = e.target.getAttribute("data-user-id");
+                    selectedUsers = selectedUsers.filter(
+                        (user) => user.id != userId
+                    );
+
+                    document.getElementById(`user-id-${userId}`).className = 'actions-button';
+                    document.getElementById(`user-id-${userId}`).disabled = false;
+
+                    renderSelectedUsers();
+                });
+            });
 
         // Habilitar/deshabilitar botón de vincular según haya seleccionados
         linkUsersBtn.disabled = selectedUsers.length === 0;
@@ -224,12 +239,18 @@ async function listUsers() {
                         orderable: false,
                         searchable: false,
                         render: function (data, type, row) {
-                            return `<button class="actions-button" data-user-id="${row.id}" data-user-name="${row.complete_name}" data-user-rol="${row.rol}">Añadir</button>`;
+                            return `<button id="user-id-${row.id}" class="actions-button" data-user-id="${row.id}" data-user-name="${row.complete_name}" data-user-rol="${row.rol}">Añadir</button>`;
                         },
                     },
                 ],
                 language: {
                     url: "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                    paginate: {
+                        first: `<span class="icon-pagination">«</span>`,
+                        previous: `<span class="icon-pagination">‹</span>`,
+                        next: `<span class="icon-pagination">›</span>`,
+                        last: `<span class="icon-pagination">»</span>`,
+                    },
                 },
                 responsive: true,
                 drawCallback: function () {
@@ -260,6 +281,9 @@ async function listUsers() {
                                             .join(" "),
                                         rol: userRol,
                                     });
+                                    e.target.style.disabled = true;
+                                    e.target.className = "disabled";
+                                    e.target.disabled = true;
                                     renderSelectedUsers();
                                 }
                             });

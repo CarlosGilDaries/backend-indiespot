@@ -5,11 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
 use App\Models\Gender;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 use DataTables;
 
 class ContentController extends Controller
@@ -194,7 +196,7 @@ class ContentController extends Controller
     public function show($slug)
     {
         try {
-            $movie = Content::where('slug', $slug)->with(['users.rol'])->first();
+            $movie = Content::where('slug', $slug)->with(['users.rol', 'gender'])->first();
 
             if (!$movie) {
                 return response()->json([
@@ -206,6 +208,7 @@ class ContentController extends Controller
             return response()->json([
                 'success' => true,
                 'movie' => $movie,
+                'release_date' => Carbon::parse($movie->release_date)->format('d/m/Y'),
                 'message' => 'Película obtenida con éxito.'
             ], 201);
 

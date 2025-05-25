@@ -10,18 +10,6 @@ video {
     position: absolute;
 }
 
-#content-image {
-    height: 200px;
-    width: auto;
-    border-radius: 10px;
-}
-
-#content-container {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
 .banner {
     position: relative;
     z-index: 1;
@@ -46,3 +34,125 @@ video {
     pointer-events: none;
 }
 
+.details {
+    background-color: var(--color-background-dark);
+    color: var(--color-primary);
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+}
+
+.details .overview,
+.details .cast {
+    background-color: var(--text-boxes-background);
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.details h3 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.details .overview {
+    width: calc(55% - 40px);
+}
+
+.details .cast {
+    width: calc(45% - 40px);
+}
+
+#content-image {
+    height: 200px;
+    width: auto;
+    border-radius: 10px;
+}
+
+#content-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 50%;
+    padding-top: 250px;
+}
+
+#film-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#img-title {
+    display: flex;
+    gap: 20px;
+}
+
+#content-title {
+    font-weight: 800 !important;
+    font-size: 2.475rem
+}
+
+#film-info p,
+#film-info h3,
+#tagline  {
+    color: var(--color-primary);
+}
+
+#button-tagline {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-text {
+    color: var(--text-gray-color);
+}
+
+.details .info-text {
+    margin-bottom: 15px;
+}
+
+.details .info-text:last-child {
+    margin-bottom: 0;
+}
+
+#tagline {
+    max-width: 80%;
+}
+
+#overview-text,
+#tagline,
+.info-text {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.play-button {
+    width: 240px;
+}
+
+#film-info a,
+.cast-name {
+    transition: color 0.3s ease;
+}
+
+#film-info a:hover,
+.cast-name:hover {
+    color: var(--link-names-hover);
+}
+
+@media (max-width: 768px) {
+    .details {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .details .overview,
+    .details .cast {
+        width: 100%;
+    }
+}

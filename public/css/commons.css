@@ -7,6 +7,57 @@
     box-sizing: border-box;
 }
 
+
+:root{
+    --color-primary: #ffffff;
+
+    --color-background-dark: black;
+    --color-background-light: #f4f4f4;
+
+    --scroll-background: rgba(0, 0, 0, 0.5);
+    --scroll-background-hover: rgba(255, 255, 255, 0.3);
+
+    --link-account-color: #2b6cb0;
+    --link-acount-hover: #1a5276;
+
+    --btn-account-background: #fbc531;
+    --btn-account-background-hover: #e1b12c;
+    --btn-account-text: #000;
+
+    --btn-playbtn-color: linear-gradient(135deg, #6e8efb, #a777e3);
+
+    --color-gray: #ddd;
+    --color-gray-lighter: #f2f2f2;
+    --color-gray-darker: #666;
+
+    --admin-sidebar-background: #1a1a2e;
+    --admin-sidebar-active: #c82333;
+    --admin-sidebar-hover: rgba(233, 69, 96, 0.2);
+    --admin-box-shadow: rgba(0, 0, 0, 0.1);
+
+    --link-users-btn-background: #00bcd4;
+    --link-users-btn-hover: #0097a7;
+    --link-users-btn-disabled: #b2ebf2;
+    --unlink-users-btn-hover: #e94560;
+
+    --list-users-actions: #45a049;
+    --list-users-actions-hover: #4CAF50;
+    --list-users-disabled: #a1d8a3;
+
+    --login-box-border: rgba(255, 255, 255, .5);
+
+    --manage-item-background: rgba(255, 255, 255, 0.1);
+    --manage-item-hover: rgba(255, 255, 255, 0.15);
+    --red-button-hover: #16213e;
+
+    --error-message-color: #f44336;
+    --succes-message-color: #4caf50;
+
+    --link-names-hover: #02ffa1;
+    --text-boxes-background: rgba(255, 255, 255, 0.05);
+    --text-gray-color: #93959c;
+} 
+
 body {
 	min-height: 100vh;
 }
@@ -25,5 +76,4 @@ ul {
 
 a {
     text-decoration: none;
-    color: white;
 }

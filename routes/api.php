@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\API\ContentController;
 use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\ContentRolUserController;
@@ -26,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('users/datatable', [UserController::class, 'datatable']);
     Route::get('rols/datatable', [RolController::class, 'datatable']);
     Route::get('unlinked-users/{movieId}/datatable', [ContentRolUserController::class, 'datatable']);
+    Route::get('categories/datatable', [CategoryController::class, 'datatable']);
 
     Route::get('manage-devices', [UserSessionController::class, 'index']);
     Route::delete('destroy-device' , [UserSessionController::class, 'destroy']);
@@ -65,4 +67,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('add-rol', [RolController::class, 'store']);
     Route::post('edit-rol/{id}', [RolController::class, 'update']);
     Route::delete('delete-rol', [RolController::class, 'destroy']);
+
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('category/{id}', [CategoryController::class, 'show']);
+    Route::post('add-category', [CategoryController::class, 'store']);
+    Route::post('edit-category/{id}', [CategoryController::class, 'update']);
+    Route::delete('delete-category', [CategoryController::class, 'destroy']);
 });

@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
     <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Editar Rol</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.css"/>
+    <title>Categorías</title>
 </head>
 <body>
     <div class="menu">
@@ -28,7 +29,7 @@
 
         <aside class="admin-sidebar">
             <ul class="admin-menu">
-                <li class="links active" data-content="list-content">
+                <li class="links" data-content="list-content">
                     <i class="fas fa-film"></i>
                     <span>Contenido</span>
                 </li>
@@ -44,7 +45,7 @@
                     <i class="fas fa-user"></i>
                     <span>Usuarios</span>
                 </li>
-                <li class="links active" data-content="list-rols">
+                <li class="links" data-content="list-rols">
                     <i class="fa-solid fa-camera"></i>
                     <span>Roles</span>
                 </li>
@@ -54,28 +55,8 @@
         <main class="admin-main">
             <div id="content-area">
                 
-                <div class="container" id="edit-rol">
-                    <!-- Editar Rol -->
-                    <h1><i class="fas fa-pen"></i> Editar Rol</h1>
-                    <div id="edit-rol-success-message" class="success-message">
-                        Rol editado con éxito
-                    </div>
-                    <form id="edit-rol-form">
-                        <div class="form-group">
-                            <label for="edit-rol-name">Nombre</label>
-                            <input type="text" id="edit-rol-name" name="name" required>
-                            <div id="edit-rol-name-error" class="error-message"></div>
-                        </div>
-
-                        <div class="loading" id="edit-rol-loading">
-                            <div class="loading-spinner"></div>
-                            <p>Editando rol, por favor espere...</p>
-                        </div>
-                        
-                        <button type="submit" class="btn">
-                            <i class="fas fa-pen"></i> Editar Rol
-                        </button>
-                    </form>
+                <div id="list-categories" class="container list">
+                    <!-- Listar Categorías -->  
                 </div>
 
             </div>
@@ -99,8 +80,9 @@
         </div>
     </footer>
 
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
     <script type="module" src="/js/admin/admin.js"></script>
-    <script type="module" src="/js/admin/editRol.js"></script>
+    <script type="module" src="/js/admin/listCategories.js"></script>
 </body>
 </html>

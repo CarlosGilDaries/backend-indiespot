@@ -10,10 +10,10 @@
 </head>
 <body>
 
-    <aside class="background-banner">
+    <section class="background-banner">
         <video muted autoplay loop poster="" id="trailer">
             <source src="" type="video/mp4">
-            <img src="images/back-image.jpg" alt="Background image">
+            <img src="" alt="Background image">
         </video>
 
         <div class="banner">
@@ -35,14 +35,43 @@
             </div>
 
             <div class="content-banner">
-                <div id ="content-container">
-                    <img id="content-image">
-                    <h1 id="content-title"></h1>
+                <div id="content-container">
+                    <div id="img-title">
+                        <img id="content-image">
+                        <div id="film-info">
+                            <h1 id="content-title"></h1>
+                            <div>
+                                <h3><a href="#" id="director"></a> · <a href="#" id="gender"> Género</a></h3>
+                                <p class="info-text"><span id="date">Fecha</span> · <span id="duration">Duración</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="button-tagline">
+                        <p class="info-text" id="tagline"></p>
+                        <button class="play-button">Ver Ahora</button>
+                    </div>
                 </div>
-                <button class="play-button">Ver Ahora</button>
             </div>
         </div>
-    </aside>
+    </section>
+
+    <section class="details">
+        <div class="overview">
+            <h3>Sinopsis</h3>
+            <p id="overview-text"></p>
+        </div>
+        <div class="cast">
+            <h3>Roles</h3>
+            <p class="info-text director">Director/a: </p>
+            <p class="info-text script-writter">Guionista: </p>
+            <p class="info-text photo-director">Director/a de fotografía: </p>
+            <p class="info-text art-director">Director/a de arte: </p>
+            <p class="info-text actors">Reparto: </p>
+            <p class="info-text operatos">Operadores/as de cámara, luces y equipo: </p>
+            <p class="info-text sound">Ingenieros/as de sonido: </p>
+            <p class="info-text editor">Editor/a: </p>
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="footer-container">

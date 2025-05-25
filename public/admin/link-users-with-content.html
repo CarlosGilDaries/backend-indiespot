@@ -47,6 +47,10 @@
                         <i class="fas fa-film"></i>
                         <span>Contenido</span>
                     </li>
+                    <li class="links" data-content="list-categories">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span>Categorías</span>
+                    </li>
                     <li class="links" data-content="list-genders">
                         <i class="fa-solid fa-rocket"></i>
                         <span>Géneros</span>
@@ -65,13 +69,12 @@
             <main class="admin-main">
                 <div id="content-area">
                     <div id="link-users-with-content" class="container">
-                        <h1><i class="fas fa-link"></i> </h1>
+                        <h1><i class="fas fa-link"></i> Vincular usuari@s a </h1>
 
                         <div id="success-message" class="success-message"></div>
 
                         <div class="users-section">
                             <div class="available-users">
-                                <h3>Usuari@s disponibles</h3>
                                 <div id="users-list" class="users-list container list"></div>
                             </div>
 
@@ -81,7 +84,7 @@
                                     id="selected-users-list"
                                     class="users-list"
                                 ></div>
-                                <button id="link-users-btn" class="btn-primary">
+                                <button id="link-users-btn" class="btn-primary" disabled>
                                     Vincular
                                 </button>
                             </div>

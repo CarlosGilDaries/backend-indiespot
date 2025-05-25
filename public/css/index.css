@@ -12,8 +12,8 @@ video {
 
 .index-main {
     padding-block: 2px;
-    background-color: black;
-    color: white;
+    background-color: var(--color-background-dark);
+    color: var(--color-primary);
 }
 
 .content-type {
@@ -52,8 +52,8 @@ video {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
+    background: var(--scroll-background);
+    color: var(--color-primary);
     border: none;
     padding: 10px;
     font-size: 34px;
@@ -73,7 +73,7 @@ video {
 }
 
 .scroll-left:hover, .scroll-right:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: var(--scroll-background-hover);
 }
 
 .hidden {

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
     <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Editar Rol</title>
+    <title>Crear Categoría</title>
 </head>
 <body>
     <div class="menu">
@@ -28,11 +28,11 @@
 
         <aside class="admin-sidebar">
             <ul class="admin-menu">
-                <li class="links active" data-content="list-content">
+                <li class="links" data-content="list-content">
                     <i class="fas fa-film"></i>
                     <span>Contenido</span>
                 </li>
-                <li class="links" data-content="list-categories">
+                <li class="links active" data-content="list-categories">
                     <i class="fa-solid fa-layer-group"></i>
                     <span>Categorías</span>
                 </li>
@@ -44,7 +44,7 @@
                     <i class="fas fa-user"></i>
                     <span>Usuarios</span>
                 </li>
-                <li class="links active" data-content="list-rols">
+                <li class="links" data-content="list-rols">
                     <i class="fa-solid fa-camera"></i>
                     <span>Roles</span>
                 </li>
@@ -54,26 +54,26 @@
         <main class="admin-main">
             <div id="content-area">
                 
-                <div class="container" id="edit-rol">
-                    <!-- Editar Rol -->
-                    <h1><i class="fas fa-pen"></i> Editar Rol</h1>
-                    <div id="edit-rol-success-message" class="success-message">
-                        Rol editado con éxito
+                <div class="container" id="add-category">
+                    <!-- Añadir Categoría -->
+                    <h1><i class="fa-solid fa-euro-sign"></i> Añadir Categoría</h1>
+                    <div id="add-category-success-message" class="success-message">
+                        Categoría añadida con éxito
                     </div>
-                    <form id="edit-rol-form">
+                    <form id="add-category-form">
                         <div class="form-group">
-                            <label for="edit-rol-name">Nombre</label>
-                            <input type="text" id="edit-rol-name" name="name" required>
-                            <div id="edit-rol-name-error" class="error-message"></div>
+                            <label for="add-category-name">Nombre</label>
+                            <input type="text" id="add-category-name" name="name" required>
+                            <div id="add-category-name-error" class="error-message"></div>
                         </div>
-
-                        <div class="loading" id="edit-rol-loading">
+                
+                        <div class="loading" id="add-category-loading">
                             <div class="loading-spinner"></div>
-                            <p>Editando rol, por favor espere...</p>
+                            <p>Añadiendo Categoría, por favor espere...</p>
                         </div>
                         
                         <button type="submit" class="btn">
-                            <i class="fas fa-pen"></i> Editar Rol
+                            <i class="fas fa-upload"></i> Añadir Categoría
                         </button>
                     </form>
                 </div>
@@ -101,6 +101,6 @@
 
     <script src="/ckeditor/ckeditor.js"></script>
     <script type="module" src="/js/admin/admin.js"></script>
-    <script type="module" src="/js/admin/editRol.js"></script>
+    <script type="module" src="/js/admin/addCategory.js"></script>
 </body>
 </html>

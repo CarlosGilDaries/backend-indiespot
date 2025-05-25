@@ -9,7 +9,7 @@ export function getVideoContent(data, node, backendURL) {
     article.classList.add('content');
 
     const link = document.createElement('a');
-    link.href = `/${video.slug}`;
+    link.href = `/content/${video.slug}`;
 
     const img = document.createElement('img');
     img.src = backendURL + video.cover;

@@ -33,4 +33,9 @@ class Content extends Model
         return $this->belongsToMany(User::class, 'content_rol_user')
                    ->withPivot('rol_id');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

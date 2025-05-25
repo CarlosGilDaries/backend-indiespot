@@ -20,7 +20,7 @@
     justify-content: space-between;
     gap: 5px;
     font-size: 15px;
-    background-color: black;
+    background-color: var(--color-background-dark);
     z-index: 1000;
     transition: background-color 0.5s ease-in;
 }
@@ -84,7 +84,7 @@
     height: 36px;
     border-radius: 10px;
     overflow: hidden;
-    background-color: white;
+    background-color: var(--color-background-light);
 	transition: transform 0.3s ease-out;
 }
 
@@ -99,8 +99,8 @@
     font-weight: 700;
     padding: 5px;
     cursor: pointer;
-    border: 1px solid white;
-    background-color: white;
+    border: 1px solid var(--color-background-light);
+    background-color: var(--color-background-light);
 }
 
 .login-btn:hover {

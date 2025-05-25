@@ -3,7 +3,7 @@
 @import '/css/footer.css';
 
 .menu {
-    background-color: #000;
+    background-color: var(--color-background-dark);
     width: 100%;
     padding-inline: 30px;
 }
@@ -22,25 +22,25 @@ section {
     position: relative;
     width: 400px;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--login-box-border);
     border-radius: 20px;
     padding: 40px;
     backdrop-filter: blur(15px);
-    color: #fff;
+    color: var(--color-primary);
 }
 
 .devices-box h2 {
     font-size: 2em;
     text-align: center;
     margin-bottom: 20px;
-    color: #fff;
+    color: var(--color-primary);
 }
 
 .message {
     font-size: 1em;
     text-align: center;
     margin-bottom: 25px;
-    color: #fff;
+    color: var(--color-primary);
 }
 
 .devices-list {
@@ -55,26 +55,26 @@ section {
     align-items: center;
     padding: 15px;
     margin-bottom: 15px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--manage-item-background);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--login-box-border);
     transition: all 0.3s ease;
 }
 
 .device-item:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--manage-item-hover);
 }
 
 .device-name {
     font-size: 1.1em;
-    color: #fff;
+    color: var(--color-primary);
     margin: 0;
     flex-grow: 1;
 }
 
 .delete-device {
-    background: rgba(255, 255, 255, 0.9);
-    color: #d63031;
+    background: var(--color-background-light);
+    color: var(--admin-sidebar-active);
     border: none;
     padding: 8px 16px;
     border-radius: 20px;
@@ -85,10 +85,10 @@ section {
 }
 
 .delete-device:hover {
-    background: #fff;
-    color: #c0392b;
+    background: var(--color-primary);
+    color: var(--red-button-hover);
 }
-
+/*
 .change-plan-option {
     text-align: center;
     margin-top: 25px;
@@ -112,7 +112,7 @@ section {
     color: #e1b12c;
     text-decoration: underline;
 }
-
+*/
 @media (max-width: 600px) {
     .devices-box {
         width: 90%;

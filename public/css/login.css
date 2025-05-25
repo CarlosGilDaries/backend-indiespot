@@ -26,7 +26,7 @@
 }
 
 .menu {
-    background-color: #000;
+    background-color: var(--color-background-dark);
     width: 100%;
     padding-inline: 30px;
 }
@@ -47,7 +47,7 @@ section {
     width: 400px;
     height: 450px;
     background: transparent;
-    border: 2px solid rgba(255, 255, 255, .5);
+    border: 2px solid var(--login-box-border);
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -57,7 +57,7 @@ section {
 
 h2 {
     font-size: 2em;
-    color: #fff;
+    color: var(--color-primary);
     text-align: center;
 }
 
@@ -65,7 +65,7 @@ h2 {
     position: relative;
     width: 310px;
     margin: 30px 0;
-    border-bottom: 2px solid #fff;
+    border-bottom: 2px solid var(--color-primary);
 }
 
 .input-box label {
@@ -74,7 +74,7 @@ h2 {
     left: 5px;
     transform: translateY(-50%);
     font-size: 1em;
-    color: #fff;
+    color: var(--color-primary);
     pointer-events: none;
     transition: .5s;
 }
@@ -91,14 +91,14 @@ h2 {
     border: none;
     outline: none;
     font-size: 1em;
-    color: #fff;
+    color: var(--color-primary);
     padding: 0 35px 0 5px;
 }
 
 .input-box .icon {
     position: absolute;
     right: 8px;
-    color: #fff;
+    color: var(--color-primary);
     font-size: 1em;
     line-height: 57px;
 }
@@ -106,7 +106,7 @@ h2 {
 .remember-forgot {
     margin: -15px 0 15px;
     font-size:  .9em;
-    color: #fff;
+    color: var(--color-primary);
     display: flex;
     justify-content: space-between;
 }
@@ -116,7 +116,7 @@ h2 {
 }
 
 .remember-forgot a {
-    color: #fff;
+    color: var(--color-primary);
 }
 
 .remember-forgot a:hover {
@@ -126,7 +126,7 @@ h2 {
 button {
     width: 100%;
     height: 40px;
-    background: #fff;
+    background: var(--color-primary);
     border: none;
     outline: none;
     border-radius: 40px;
@@ -143,13 +143,13 @@ button:hover {
 
 .register-link {
     font-size: .9em;
-    color: #fff;
+    color: var(--color-primary);
     text-align: center;
     margin: 25px 0 10px;
 }
 
 .register-link p a {
-    color: #fff;
+    color: var(--color-primary);
     font-weight: 600;
 }
 
