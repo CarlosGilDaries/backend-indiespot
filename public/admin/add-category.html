@@ -66,6 +66,22 @@
                             <input type="text" id="add-category-name" name="name" required>
                             <div id="add-category-name-error" class="error-message"></div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="priority">Prioridad</label>
+                            <select id="priority" name="priority" required>
+                                <option value="" disabled selected>Selecciona prioridad</option>
+                            </select>
+                            <div id="priority-error" class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                            <input type="checkbox" id="render" name="render_at_index" value="1">
+                            <span class="checkmark"></span>
+                            Mostrar en el Inicio
+                            </label>
+                        </div>
                 
                         <div class="loading" id="add-category-loading">
                             <div class="loading-spinner"></div>

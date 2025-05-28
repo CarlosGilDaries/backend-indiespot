@@ -1,6 +1,7 @@
 import { getIp } from "./modules/getIp.js";
 import { logOut } from "./modules/logOut.js";
 import { formatDuration } from "./modules/formatDuration.js";
+import { dropDownMenu } from "./modules/dropDownMenu.js";
 //import { checkDeviceID } from './modules/checkDeviceId.js';
 
 const pathParts = window.location.pathname.split("/");
@@ -24,6 +25,8 @@ const tagline = document.getElementById("tagline");
 const date = document.getElementById("date");
 const duration = document.getElementById("duration");
 const overview = document.getElementById("overview-text");
+const dropDown = document.querySelector(".dropdown-menu");
+dropDownMenu(dropDown, api);
 
 if (token == null) {
     window.location.href = "/login";

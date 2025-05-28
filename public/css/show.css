@@ -15,6 +15,7 @@ video {
     z-index: 1;
 }
 
+/* QUITAR!!?? */
 .banner::before {
     content: "";
     position: absolute;

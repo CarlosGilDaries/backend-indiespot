@@ -13,11 +13,18 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::with('contents')->get();
+			$categories = Category::with(['contents' => function ($query) {
+				$query->orderBy('created_at', 'desc');
+			}])
+            ->where('render_at_index', 1)
+            ->orderBy('priority')
+            ->get();
+            $priorities = Category::all()->sortBy('priority')->pluck('priority')->toArray();
 
             return response()->json([
                 'success' => true,
-                'categories' => $categories
+                'categories' => $categories,
+                'priorities' => $priorities
             ], 200);
 
         } catch (\Exception $e) {
@@ -30,6 +37,26 @@ class CategoryController extends Controller
         }
     }
 
+    public function dropDownMenu()
+	{
+		try {
+			$categories = Category::orderBy('priority')->get();
+
+			return response()->json([
+				'success' => true,
+				'categories' => $categories,
+			], 200);
+
+		} catch (\Exception $e) {
+			Log::error('Error: ' . $e->getMessage());
+
+			return response()->json([
+				'success' => false,
+				'message' => 'Error: ' . $e->getMessage(),
+			], 500);
+		}
+	}
+
     public function datatable()
     {
         try {
@@ -39,8 +66,14 @@ class CategoryController extends Controller
 				->addColumn('id', function($category) {
 					return $category->id;
 				})
+				->addColumn('priority', function($category) {
+					return $category->priority;
+				})
 				->addColumn('name', function($category) {
 					return $category->name;
+				})
+                ->addColumn('render', function($category) {
+					return $category->render_at_index;
 				})
 				->addColumn('actions', function($category) {
 					return $this->getActionButtons($category);
@@ -61,7 +94,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         try {
-            $category = Category::where('id', $id)->first();
+            $category = Category::with('contents')->where('id', $id)->first();
 
             return response()->json([
                 'success' => true,
@@ -85,11 +118,19 @@ class CategoryController extends Controller
         try {
             $category = new Category();
 
-            //$name = sanitize_html($request->input('name'));
             $category->name = $request->input('name');
-
+            $newPriority = $request->input('priority');
+            
+            // Si la prioridad ya existe, desplazar las categorías existentes
+            if (Category::where('priority', $newPriority)->exists()) {
+                Category::where('priority', '>=', $newPriority)
+                       ->increment('priority');
+            }
+            $category->priority = $newPriority;
+            $category->render_at_index = $request->input('render_at_index');
+    
             $category->save();
-
+            
             return response()->json([
                 'success' => true,
                 'category' => $category
@@ -108,25 +149,61 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $category = Category::where('id', $id)->first();
+        try {
+            $category = Category::where('id', $id)->first();
+            $category->name = $request->input('name');
+            $category->render_at_index = $request->input('render_at_index');
+            $currentPriority = $category->priority;
+            $newPriority = $request->input('priority');
+            
+            if ($currentPriority != $newPriority) {
+                if ($newPriority < $currentPriority) {
+                    // Mover hacia arriba (prioridad más alta)
+                    Category::where('priority', '>=', $newPriority)
+                        ->where('priority', '<', $currentPriority)
+                        ->increment('priority');
+                } else {
+                    // Mover hacia abajo (prioridad más baja)
+                    Category::where('priority', '>', $currentPriority)
+                        ->where('priority', '<=', $newPriority)
+                        ->decrement('priority');
+                }
+                
+                $category->priority = $newPriority;
+            }
+    
+            $category->save();
+    
+            return response()->json([
+                'success' => true,
+                'category' => $category
+            ], 200);
 
-        //$name = sanitize_html($request->input('name'));
-        $category->name = $request->input('name');
+        } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
 
-        $category->save();
-
-        return response()->json([
-            'success' => true,
-            'category' => $category
-        ], 200);
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage(),
+            ], 500);
+        }
     }
 
     public function destroy(Request $request)
     {
         try {
             $id = $request->input('content_id');
-            $category = Category::where('id', $id)->first();
+            $category = Category::findOrFail($id);
+            $deletedPriority = $category->priority;
+            
             $category->delete();
+            
+            // Reordenar las categorías restantes si la eliminada no era la última
+            $maxPriority = Category::max('priority') ?? 0;           
+            if ($deletedPriority < $maxPriority) {
+                Category::where('priority', '>', $deletedPriority)
+                       ->decrement('priority');
+            }
 
             return response()->json([
                 'success' => true,

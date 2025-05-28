@@ -1,5 +1,6 @@
 import { logOut } from "./modules/logOut.js";
 import { checkDeviceID } from "./modules/checkDeviceId.js";
+import { dropDownMenu } from "./modules/dropDownMenu.js";
 
 const token = localStorage.getItem('auth_token');
 const email = localStorage.getItem('current_user_email');
@@ -18,6 +19,8 @@ if (device_id == null) {
 checkDeviceID(api, token);
 
 document.addEventListener('DOMContentLoaded', function () {
+  const dropDown = document.querySelector(".dropdown-menu");
+  dropDownMenu(dropDown, api);
   fetch(api + 'current-user', {
     headers: {
       Authorization: `Bearer ${token}`,

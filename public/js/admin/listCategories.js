@@ -29,7 +29,9 @@ async function listCategories() {
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Prioridad</th>
                                     <th>Nombre</th>
+                                    <th>Mostrar en Inicio</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -45,6 +47,7 @@ async function listCategories() {
       const table = $(".datatable").DataTable({
           processing: true,
           serverSide: true,
+          order: [[1, "asc"]],
           ajax: {
               url: api + "categories/datatable",
               type: "GET",
@@ -62,7 +65,16 @@ async function listCategories() {
           },
           columns: [
               { data: "id", name: "id" },
+              { data: "priority", name: "priority" },
               { data: "name", name: "name" },
+              {
+                  data: "render",
+                  name: "render",
+                  render: function (data) {
+                      if (data == 0) return "No";
+                      else return "Sí";
+                  },
+              },
               {
                   data: "actions",
                   name: "actions",

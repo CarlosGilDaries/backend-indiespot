@@ -22,7 +22,9 @@ class ContentController extends Controller
     public function index()
     {
         try {
-            $content = Content::all();
+            $content = Content::with(['categories', 'gender' => function($query) {
+                $query->select('id', 'name');
+           }])->get();
             $genders = Gender::all();
 
             return response()->json([
@@ -167,6 +169,10 @@ class ContentController extends Controller
 
             }
 
+            
+            $movie->save();
+            $movie->categories()->sync($request->input('categories'));
+
             $movie->save();
 
             return response()->json([
@@ -196,7 +202,7 @@ class ContentController extends Controller
     public function show($slug)
     {
         try {
-            $movie = Content::where('slug', $slug)->with(['users.rol', 'gender'])->first();
+            $movie = Content::where('slug', $slug)->with(['users.rol', 'gender', 'categories'])->first();
 
             if (!$movie) {
                 return response()->json([
@@ -225,7 +231,7 @@ class ContentController extends Controller
     public function editShow($id)
     {
         try {
-            $movie = Content::where('id', $id)->first();
+            $movie = Content::with('categories')->where('id', $id)->first();
 
             if (!$movie) {
                 return response()->json([
@@ -379,6 +385,7 @@ class ContentController extends Controller
                 }
             }
             $movie->type = $request->input('type');
+            $movie->categories()->sync($request->input('categories'));
 
             $movie->save();
                 /*DB::table('content_role_user')->insert([

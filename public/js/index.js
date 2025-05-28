@@ -1,6 +1,7 @@
 import { logOut } from './modules/logOut.js';
 import { getVideoContent } from './modules/getVideoContent.js';
 import { addScrollFunctionality } from './modules/addScrollFunctionality.js';
+import { dropDownMenu } from "./modules/dropDownMenu.js";
 //import { checkDeviceID } from './modules/checkDeviceId.js';
 
 const api = 'https://indiespot.test/api/';
@@ -27,6 +28,12 @@ if (device_id == null && token != null) {
 }
 
 //checkDeviceID(api, token);
+const categoriesResponse = await fetch(api + "categories");
+const categoriesData = await categoriesResponse.json();
+const dropDown = document.querySelector(".dropdown-menu");
+const main = document.querySelector("main");
+
+dropDownMenu(dropDown, api);
 
 fetch(api + 'content')
   .then((response) => response.json())
@@ -45,17 +52,24 @@ fetch(api + 'content')
     console.error('Error en la solicitud: ', error);
   });
 
-document.addEventListener('DOMContentLoaded', async function () {
-  const userIcon = document.querySelector('.user');
-  const navRight = document.querySelector('.right-nav');
 
-  if (token == null) {
+const userIcon = document.querySelector(".user");
+const navRight = document.querySelector(".right-nav");
+
+if (token == null) {
     if (userIcon) userIcon.remove();
 
-    const loginButton = document.createElement('li');
-    loginButton.innerHTML = `<a href="/login"><button class="login-btn">Iniciar sesión</button></a>`;
-    navRight.appendChild(loginButton);
-  }
-});
+    const unloggedButtonsContainer = document.createElement("li");
+    unloggedButtonsContainer.classList.add("unlogged-buttons");
+    const loginButton = document.createElement("a");
+    loginButton.href = "/login";
+    const registerButton = document.createElement("a");
+    registerButton.href = "/register.html";
+    loginButton.innerHTML = `<button class="login-btn">Iniciar sesión</button>`;
+    registerButton.innerHTML = `<button class="signup-btn">Registrarse</button>`;
+    unloggedButtonsContainer.appendChild(loginButton);
+    unloggedButtonsContainer.appendChild(registerButton);
+    navRight.appendChild(unloggedButtonsContainer);
+}
 
 

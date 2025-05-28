@@ -7,7 +7,7 @@
     justify-content: space-between;
     gap: 5px;
     font-size: 15px;
-    transition: background-color 0.5s ease-out;
+    transition: background-color 0.3s ease-out;
 }
 
 .scrolled { /*Clase a la que cambia el menu al scrollear*/
@@ -22,7 +22,7 @@
     font-size: 15px;
     background-color: var(--color-background-dark);
     z-index: 1000;
-    transition: background-color 0.5s ease-in;
+    transition: background-color 0.3s ease-in;
 }
 
 .nav {
@@ -36,6 +36,7 @@
 .left-nav {
     display: flex;
     font-size: 16px;
+    font-weight: 600;
     gap: 40px;
 }
 
@@ -49,14 +50,64 @@
 .left-nav li:nth-child(4),
 .left-nav li:nth-child(5) {
     display: none;
-	transition: transform 0.3s ease-out;
 }
 
-.left-nav li:nth-child(2):hover,
-.left-nav li:nth-child(3):hover,
-.left-nav li:nth-child(4):hover,
-.left-nav li:nth-child(5):hover {
-    transform: scale(105%);
+.left-nav li:nth-child(2) a,
+.left-nav li:nth-child(3) a,
+.left-nav li:nth-child(4) a,
+.left-nav li:nth-child(5) a{
+	transition: color 0.3s ease;
+}
+
+.left-nav li:nth-child(2) a:hover,
+.left-nav li:nth-child(3) a:hover,
+.left-nav li:nth-child(4) a:hover,
+.left-nav li:nth-child(5) a:hover {
+    color: var(--btn-account-background);
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+	border: 1px solid var(--color-gray-dark);
+    top: 100%;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    background-color: var(--color-background-dark);
+    min-width: 200px;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: flex;
+}
+
+.dropdown-menu li {
+    padding: 8px 20px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: var(--color-gray-dark);
+}
+
+.dropdown-menu a {
+    color: var(--color-primary);
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.scrolled .dropdown-menu {
+    background-color: var(--color-background-dark); 
+    border: 1px solid var(--color-gray-dark);
 }
 
 @media (min-width: 992px) {
@@ -76,7 +127,7 @@
 
 .right-nav li:nth-child(1) {
     width: 32px;  
-	transition: transform 0.3s ease-out;
+	transition: transform 0.3s ease;
 }
 
 .user {
@@ -84,8 +135,8 @@
     height: 36px;
     border-radius: 10px;
     overflow: hidden;
-    background-color: var(--color-background-light);
-	transition: transform 0.3s ease-out;
+    background-color: var(--color-primary);
+	transition: transform 0.3s ease;
 }
 
 .user:hover,
@@ -93,16 +144,36 @@
     transform: scale(1.1);
 }
 
-.login-btn {
-    border-radius: 10px;
+.unlogged-buttons {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.login-btn,
+.signup-btn {
+    border-radius: 5px;
     font-size: 16px;
     font-weight: 700;
     padding: 5px;
     cursor: pointer;
-    border: 1px solid var(--color-background-light);
-    background-color: var(--color-background-light);
+	min-width: 140px;
 }
 
-.login-btn:hover {
+.login-btn {
+	background: transparent;
+	border: 2px solid var(--color-primary);
+	color: var(--color-primary);
+}
+
+.signup-btn {
+	background: var(--btn-account-background);
+	border: none;
+	color: var(--color-background-dark);
+	transform: scale(105%);
+}
+
+.login-btn:hover,
+.signup-btn:hover {
     filter: brightness(0.9);
 }

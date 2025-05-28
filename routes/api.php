@@ -20,6 +20,7 @@ Route::get('users', [UserController::class, 'index']);
 Route::get('content', [ContentController::class, 'index']);
 
 Route::get('rols', [RolController::class, 'index']);
+Route::get('categories', [CategoryController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('content/datatable', [ContentController::class, 'datatable']);
@@ -68,7 +69,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-rol/{id}', [RolController::class, 'update']);
     Route::delete('delete-rol', [RolController::class, 'destroy']);
 
-    Route::get('categories', [CategoryController::class, 'index']);
     Route::get('category/{id}', [CategoryController::class, 'show']);
     Route::post('add-category', [CategoryController::class, 'store']);
     Route::post('edit-category/{id}', [CategoryController::class, 'update']);

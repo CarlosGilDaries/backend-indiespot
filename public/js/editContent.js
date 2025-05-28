@@ -58,13 +58,46 @@ async function editContentForm() {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      const categoryResponse = await fetch(backendAPI + "categories", {
+          headers: {
+              Authorization: `Bearer ${token}`,
+          },
+      });
+
       const data = await response.json();
       const content = data.movie;
       const genderData = await genderResponse.json();
       const genders = genderData.genders;
+      const categoryData = await categoryResponse.json();
+      const categories = categoryData.categories;
+
+      let currentCategoriesId = [];
+      console.log(content);
+      content.categories.forEach((category) => {
+          currentCategoriesId.push(category.id);
+      });
+
+      const categoriesContainer = document.getElementById(
+          "categories-container"
+      );
+
+      let categoriesContainerTextContent = "";
+
+      categories.forEach((category) => {
+          categoriesContainerTextContent += `
+                                     <label class="checkbox-container">
+                                       <input type="checkbox" name="categories[${category.id}][id]" value="${category.id}" id="edit-content-category-${category.id}" class="category-checkbox">
+                                       <span class="checkmark"></span>
+                                         <p>${category.name}</p>
+                                     </label>
+                                     `;
+      });
+      categoriesContainer.innerHTML = categoriesContainerTextContent;
 
       // Llenar el select de géneros
       const selectGender = document.getElementById('gender_id');
+
       genders.forEach((gender) => {
         let option = document.createElement('option');
         option.value = gender.id;
@@ -133,6 +166,14 @@ async function editContentForm() {
         document.getElementById('tagline').value = content.tagline;
         document.getElementById('overview').value = content.overview;
       }
+
+      let checkboxCategories = document.querySelectorAll(
+          "#content-form .category-checkbox"
+      );
+      checkboxCategories.forEach((chbox) => {
+        console.log(chbox.value);
+          chbox.checked = currentCategoriesId.includes(Number(chbox.value));
+      });
 
       // Mostrar/ocultar secciones según el tipo de contenido
       toggleContentFiles(content.type);
@@ -216,6 +257,26 @@ async function editContentForm() {
             formData.append('ts3', ts3Input.files[0]);
         }
       }
+
+      const categoryCheckboxes = document.querySelectorAll(
+          "#content-form .category-checkbox"
+      );
+      let atLeastOneCategoryChecked = false;
+
+      categoryCheckboxes.forEach((checkbox) => {
+          if (checkbox.checked) {
+              formData.append("categories[]", checkbox.value);
+              atLeastOneCategoryChecked = true;
+          }
+      });
+
+      if (!atLeastOneCategoryChecked) {
+          document.getElementById("loading").style.display =
+              "none";
+          alert("Selecciona al menos una categoría");
+          return;
+      }
+
 
       try {
         const editResponse = await fetch(backendAPI + `update-content/${id}`, {

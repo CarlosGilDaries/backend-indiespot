@@ -67,6 +67,22 @@
                             <div id="edit-category-name-error" class="error-message"></div>
                         </div>
 
+                        <div class="form-group">
+                            <label for="edit-category-priority">Prioridad</label>
+                            <select id="edit-category-priority" name="priority" required>
+                                <option value="" disabled selected>Selecciona prioridad</option>
+                            </select>
+                            <div id="edit-category-priority-error" class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-container">
+                            <input type="checkbox" id="edit-category-render" name="render_at_index" value="1">
+                            <span class="checkmark"></span>
+                            Mostrar en el Inicio
+                            </label>
+                        </div>
+
                         <div class="loading" id="edit-category-loading">
                             <div class="loading-spinner"></div>
                             <p>Editando Categoría, por favor espere...</p>
