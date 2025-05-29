@@ -45,7 +45,7 @@
 .info a:nth-child(1):hover,
 .info a:nth-child(2):hover,
 .info a:nth-child(3):hover {
-    color: var(--btn-account-background);
+    color: var(--color-link-hover);
 }
 
 @media (min-width: 992px) {

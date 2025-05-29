@@ -1,7 +1,9 @@
 import { getIp } from "./modules/getIp.js";
 import { logOut } from "./modules/logOut.js";
 import { formatDuration } from "./modules/formatDuration.js";
-import { dropDownMenu } from "./modules/dropDownMenu.js";
+import { dropDownTypeMenu } from "./modules/dropDownTypeMenu.js";
+import { renderSimilars } from "./modules/renderSimilars.js";
+import { fixMenuWhenScrollling } from "./modules/fixMenuWhenScrolling.js";
 //import { checkDeviceID } from './modules/checkDeviceId.js';
 
 const pathParts = window.location.pathname.split("/");
@@ -25,8 +27,11 @@ const tagline = document.getElementById("tagline");
 const date = document.getElementById("date");
 const duration = document.getElementById("duration");
 const overview = document.getElementById("overview-text");
-const dropDown = document.querySelector(".dropdown-menu");
-dropDownMenu(dropDown, api);
+const categoriesDropDown = document.getElementById("categories");
+const gendersDropDown = document.getElementById("genders");
+
+dropDownTypeMenu(categoriesDropDown, "categories", "category");
+dropDownTypeMenu(gendersDropDown, "genders", "gender");
 
 if (token == null) {
     window.location.href = "/login";
@@ -45,14 +50,6 @@ if (device_id == null) {
 async function fetchMovieData() {
 
   const menu = document.querySelector(".menu");
-
-  window.addEventListener("scroll", function () {
-      if (window.scrollY > 1) {
-          menu.classList.add("scrolled");
-      } else {
-          menu.classList.remove("scrolled");
-      }
-  });
 
     try {
         const response = await fetch(api + "content/" + movieSlug, {
@@ -73,7 +70,11 @@ async function fetchMovieData() {
             const image = document.getElementById("content-image");
             const title = document.getElementById("content-title");
             const trailer = document.getElementById("trailer");
-            trailer.src = backendURL + data.movie.trailer;
+            if (data.movie.trailer != null) {
+                trailer.src = backendURL + data.movie.trailer;
+            } else {
+                trailer.poster = data.movie.cover;
+            }
             image.src = backendURL + data.movie.cover;
             title.innerHTML = data.movie.title;
             document.title = data.movie.title + " - IndieSpot";
@@ -128,6 +129,7 @@ async function fetchMovieData() {
 
             director.innerHTML = directorName.name;
             gender.innerHTML = data.movie.gender.name;
+            gender.href = `/gender-show.html?id=${data.movie.gender_id}`;
             tagline.innerHTML = data.movie.tagline;
             date.innerHTML = data.release_date;
           duration.innerHTML = formatDuration(data.movie.duration);
@@ -175,6 +177,8 @@ async function fetchMovieData() {
                     )
                     .join(", ");
             }
+
+            renderSimilars(data.movie, token);
         } else {
             console.error("Error al consultar la API: ", data.message);
         }
@@ -185,4 +189,23 @@ async function fetchMovieData() {
 }
 
 fetchMovieData();
+
+const tabs = document.querySelectorAll(".tab");
+
+tabs.forEach((tab) => {
+    tab.addEventListener("click", function () {
+        document.querySelectorAll(".tab").forEach((t) => {
+            t.classList.remove("active");
+        });
+        document.querySelectorAll(".tab-content").forEach((c) => {
+            c.classList.remove("active");
+        });
+
+        const tabId = this.getAttribute("data-tab");
+        document.getElementById(tabId).classList.add("active");
+        this.classList.add("active");
+    });
+});
+
+fixMenuWhenScrollling();
 

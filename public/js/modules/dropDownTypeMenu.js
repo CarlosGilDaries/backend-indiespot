@@ -1,26 +1,26 @@
-export async function dropDownMenu(dropDownMenuElement, api) {
+export async function dropDownTypeMenu(dropDownMenuElement, types, type) {
   try {
-    const response = await fetch(api + 'categories');
+    const response = await fetch(`/api/${types}`);
     const data = await response.json();
-    const categories = data.categories;
+    const items = data[types];
     let counter = 0;
 
     dropDownMenuElement.innerHTML = '';
-    categories.forEach((category) => {
+    items.forEach((item) => {
       counter++;
-      if (counter < 7) {
+      if (counter <= 7) {
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = `#`;
-        a.textContent = category.name;
+        a.href = `/${type}-show.html?id=${item.id}`;
+        a.textContent = item.name;
         li.appendChild(a);
         dropDownMenuElement.appendChild(li);
       }
     });
     const seeMore = document.createElement('li');
     const seeMoreLink = document.createElement('a');
-    seeMoreLink.href = `#`;
-    seeMoreLink.textContent = 'Ver Todas';
+    seeMoreLink.href = `/${types}.html`;
+    seeMoreLink.textContent = 'Ver Más';
     seeMore.appendChild(seeMoreLink);
     dropDownMenuElement.appendChild(seeMore);
 

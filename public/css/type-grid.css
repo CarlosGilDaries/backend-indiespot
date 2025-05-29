@@ -1,0 +1,102 @@
+@import '/css/commons.css';
+@import '/css/nav.css';
+@import '/css/footer.css';
+
+.menu {
+    background-color: var(--color-background-dark);
+}
+
+main {
+    min-height: 84vh;
+    background-color: var(--color-background-grid);
+    padding: 30px 50px;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin: 0 auto;
+}
+
+.box {
+    border-radius: 5px;
+    height: 180px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: var(--color-gray);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    position: relative;
+    text-align: center; 
+    padding: 15px; 
+}
+
+.category-name,
+.gender-name {
+    color: black;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin: 0;
+    width: 100%; /* Asegurar que ocupe todo el ancho */
+    padding: 0 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    text-align: center;
+    position: static;
+	transition: all 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+.box:hover .category-name,
+.box:hover .gender-name{
+    transform: scale(1.05);
+}
+
+.grid-title {
+	color: var(--color-primary);
+	width: 100%;
+}
+
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+    }
+    
+    .box {
+        height: 150px;
+    }
+    
+    .category-name,
+	.gender-name{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 20px 15px;
+    }
+    
+    .main-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    
+    .box {
+        height: 120px;
+    }
+    
+    .category-name,
+	.gender-name{
+        font-size: 1rem;
+        bottom: 15px;
+        left: 15px;
+    }
+}

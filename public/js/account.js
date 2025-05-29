@@ -1,6 +1,7 @@
 import { logOut } from "./modules/logOut.js";
 import { checkDeviceID } from "./modules/checkDeviceId.js";
-import { dropDownMenu } from "./modules/dropDownMenu.js";
+import { dropDownTypeMenu } from "./modules/dropDownTypeMenu.js";
+import { fixMenuWhenScrollling } from "./modules/fixMenuWhenScrolling.js";
 
 const token = localStorage.getItem('auth_token');
 const email = localStorage.getItem('current_user_email');
@@ -19,8 +20,10 @@ if (device_id == null) {
 checkDeviceID(api, token);
 
 document.addEventListener('DOMContentLoaded', function () {
-  const dropDown = document.querySelector(".dropdown-menu");
-  dropDownMenu(dropDown, api);
+  const categoriesDropDown = document.getElementById("categories");
+  const gendersDropDown = document.getElementById("genders");
+  dropDownTypeMenu(categoriesDropDown, "categories", "category");
+  dropDownTypeMenu(gendersDropDown, "genders", "gender");
   fetch(api + 'current-user', {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -54,9 +57,6 @@ document.addEventListener('DOMContentLoaded', function () {
               !['email_verified_at', 'created_at', 'updated_at'].includes(key)
             ) {
               if (fieldsToDisplay[key]) {
-                if (key == 'curriculum') {
-                  console.log(value);
-                }
                 // Solo mostrar los campos que están en fieldsToDisplay
                 const row = tableBody.insertRow();
                 const cell1 = row.insertCell(0);
@@ -135,4 +135,6 @@ document.getElementById('logout-button').addEventListener('click', async functio
 
   logOut(token);
 });
+
+fixMenuWhenScrollling();
 

@@ -45,25 +45,17 @@
     height: 45px;
 }
 
-.left-nav li:nth-child(2),
-.left-nav li:nth-child(3),
-.left-nav li:nth-child(4),
-.left-nav li:nth-child(5) {
+.left-nav-links {
     display: none;
-}
-
-.left-nav li:nth-child(2) a,
-.left-nav li:nth-child(3) a,
-.left-nav li:nth-child(4) a,
-.left-nav li:nth-child(5) a{
 	transition: color 0.3s ease;
 }
 
-.left-nav li:nth-child(2) a:hover,
-.left-nav li:nth-child(3) a:hover,
-.left-nav li:nth-child(4) a:hover,
-.left-nav li:nth-child(5) a:hover {
-    color: var(--btn-account-background);
+.left-nav-links a {
+	transition: color 0.3s ease;
+}
+
+.left-nav-links a:hover {
+    color: var(--color-link-hover);
 }
 
 .dropdown {

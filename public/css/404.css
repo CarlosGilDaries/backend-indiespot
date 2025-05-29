@@ -1,0 +1,93 @@
+@import '/css/commons.css';
+@import '/css/nav.css';
+@import '/css/footer.css';
+
+.menu {
+	background-color: black;
+}
+
+body {
+    background-color: #121212;
+    color: #e0e0e0; 
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.error-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+	gap: 50px;
+    padding: 0 5%;
+    margin: 2rem 0;
+}
+
+.error-content {
+    max-width: 50%;
+}
+
+.error-content h1 {
+    font-size: 8rem;
+    margin: 0;
+    color: #ff4d4d;
+}
+
+.error-content h2 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.error-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.error-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(135deg, #ff4d4d 0%, #cc3333 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(255, 77, 77, 0.3);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #666;
+}
+
+.error-image {
+    position: relative;
+}
+
+.error-image img {
+    max-width: 400px;
+
+}

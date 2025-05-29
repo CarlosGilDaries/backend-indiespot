@@ -21,6 +21,9 @@ Route::get('content', [ContentController::class, 'index']);
 
 Route::get('rols', [RolController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
+Route::get('category/{id}', [CategoryController::class, 'show']);
+Route::get('genders', [GenderController::class, 'index']);
+Route::get('gender/{id}', [GenderController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('content/datatable', [ContentController::class, 'datatable']);
@@ -58,8 +61,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('add-vote/{slug}', [VoteController::class, 'store']);
     Route::get('get-vote/{slug}', [VoteController::class, 'show']);
 
-    Route::get('genders', [GenderController::class, 'index']);
-    Route::get('gender/{id}', [GenderController::class, 'show']);
     Route::post('add-gender', [GenderController::class, 'store']);
     Route::post('edit-gender/{id}', [GenderController::class, 'update']);
     Route::delete('delete-gender', [GenderController::class, 'destroy']);
@@ -69,7 +70,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-rol/{id}', [RolController::class, 'update']);
     Route::delete('delete-rol', [RolController::class, 'destroy']);
 
-    Route::get('category/{id}', [CategoryController::class, 'show']);
     Route::post('add-category', [CategoryController::class, 'store']);
     Route::post('edit-category/{id}', [CategoryController::class, 'update']);
     Route::delete('delete-category', [CategoryController::class, 'destroy']);

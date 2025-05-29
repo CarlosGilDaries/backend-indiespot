@@ -18,16 +18,21 @@
         <div class="banner">
             <div class="menu">
                 <nav>
-                    <ul class="nav left-nav">
-                        <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
-                        <li><a class ="nav-right-link" href="/">Inicio</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle">Categorías</a>
-                            <ul class="dropdown-menu">
-                            </ul>
-                        </li>
-                        <li><a class ="nav-right-link" href="#">Favoritos</a></li>
-                    </ul>
+					<ul class="nav left-nav">
+						<li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indiespot logo"></a></li>
+						<li class="left-nav-links"><a href="/">Inicio</a></li>
+						<li class="dropdown left-nav-links">
+							<a href="/categories.html" class="dropdown-toggle">Categorías</a>
+							<ul class="dropdown-menu" id="categories">
+							</ul>
+						</li>
+						<li class="dropdown left-nav-links">
+							<a href="/genders.html" class="dropdown-toggle">Géneros</a>
+							<ul class="dropdown-menu" id="genders">
+							</ul>
+						</li>
+						<li class="left-nav-links"><a href="#">Favoritos</a></li>
+					</ul>
                 </nav>
                 <nav>
                     <ul class="nav right-nav">
@@ -58,7 +63,14 @@
         </div>
     </section>
 
-    <section class="details">
+    <div class="tabs-container">
+        <ul class="tabs">
+            <li class="tab active" data-tab="details">Detalles</li>
+            <li class="tab" data-tab="similar">Similares</li>
+        </ul>
+    </div>
+
+    <section id="details" class="tab-content active">
         <div class="overview">
             <h3>Sinopsis</h3>
             <p id="overview-text"></p>
@@ -75,6 +87,8 @@
             <p class="info-text editor">Editor/a: </p>
         </div>
     </section>
+
+    <section id="similar" class="tab-content"></section>
 
     <footer class="footer">
         <div class="footer-container">
