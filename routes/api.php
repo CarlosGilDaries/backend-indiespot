@@ -27,6 +27,7 @@ Route::get('gender/{id}', [GenderController::class, 'show']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('content/datatable', [ContentController::class, 'datatable']);
+    Route::get('director-content/datatable', [ContentController::class, 'directorDatatable']);
     Route::get('genders/datatable', [GenderController::class, 'datatable']);
     Route::get('users/datatable', [UserController::class, 'datatable']);
     Route::get('rols/datatable', [RolController::class, 'datatable']);
@@ -49,7 +50,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('content/{slug}', [ContentController::class, 'show']);
     Route::get('edit-view-content/{id}', [ContentController::class, 'editShow']);
     Route::post('add-content', [ContentController::class, 'store']);
+    Route::post('director-add-content', [ContentController::class, 'directorStore']);
     Route::post('update-content/{id}', [ContentController::class, 'update']);
+    Route::post('director-update-content/{id}', [ContentController::class, 'directorUpdate']);
     Route::delete('delete-content', [ContentController::class, 'destroy']);
 
     Route::post('link-users-with-content', [ContentRolUserController::class, 'store']);

@@ -38,28 +38,39 @@ export function initPriorityBanner(categoriesData) {
 			playButton.onclick = () => window.location.href = `/content/${movie.slug}`;
 
 			if (movie.trailer) {
-				videoElement.poster = "";
-				sourceElement.src = movie.trailer;
-				videoElement.load();
+                // Detener video anterior y reiniciar completamente
+                videoElement.pause();
+                videoElement.removeAttribute("poster"); // evitar parpadeo del póster anterior
+                sourceElement.removeAttribute("src");
+                videoElement.load(); // descarga el source anterior inmediatamente
 
-				// Manejar autoplay con mejor control de errores
-				const playPromise = videoElement.play();
+                // Asignar el nuevo póster inmediatamente
+                videoElement.poster = movie.cover;
 
-				if (playPromise !== undefined) {
-					playPromise.catch(e => {
-						console.log('Autoplay bloqueado:', e);
-						videoElement.poster = movie.cover;
-						videoElement.pause();
-					}).finally(() => {
-						videoElement.style.display = 'block';
-					});
-				}
-			} else {
-				videoElement.poster = movie.cover;
-				videoElement.pause();
-				sourceElement.removeAttribute('src');
-				videoElement.load();
-			}
+                // Cargar y reproducir el nuevo trailer con retraso
+                setTimeout(() => {
+                    sourceElement.src = movie.trailer;
+                    videoElement.load(); // carga el nuevo video
+                    const playPromise = videoElement.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise
+                            .catch((e) => {
+                                console.log("Autoplay bloqueado:", e);
+                                videoElement.poster = movie.cover;
+                                videoElement.pause();
+                            })
+                            .finally(() => {
+                                videoElement.style.display = "block";
+                            });
+                    }
+                }, 1500);
+            } else {
+                videoElement.poster = movie.cover;
+                videoElement.pause();
+                sourceElement.removeAttribute("src");
+                videoElement.load();
+            }
 
 			// Fade in del nuevo contenido
 			await new Promise(resolve => setTimeout(resolve, 50)); // Pequeña pausa

@@ -33,6 +33,8 @@ const gendersDropDown = document.getElementById("genders");
 dropDownTypeMenu(categoriesDropDown, "categories", "category");
 dropDownTypeMenu(gendersDropDown, "genders", "gender");
 
+fixMenuWhenScrollling();
+
 if (token == null) {
     window.location.href = "/login";
 }
@@ -48,8 +50,6 @@ if (device_id == null) {
 //checkDeviceID(api, token);
 
 async function fetchMovieData() {
-
-  const menu = document.querySelector(".menu");
 
     try {
         const response = await fetch(api + "content/" + movieSlug, {
@@ -71,10 +71,13 @@ async function fetchMovieData() {
             const title = document.getElementById("content-title");
             const trailer = document.getElementById("trailer");
             if (data.movie.trailer != null) {
-                trailer.src = backendURL + data.movie.trailer;
-            } else {
-                trailer.poster = data.movie.cover;
+                trailer.classList.add("fade-out");
+                setTimeout(() => {
+                    trailer.src = backendURL + data.movie.trailer;
+                    trailer.classList.remove("fade-out");
+                }, 1500);
             }
+            trailer.poster = data.movie.cover;
             image.src = backendURL + data.movie.cover;
             title.innerHTML = data.movie.title;
             document.title = data.movie.title + " - IndieSpot";
@@ -128,6 +131,7 @@ async function fetchMovieData() {
             });
 
             director.innerHTML = directorName.name;
+            director.href = `/account-show.html?id=${directorName.id}`;
             gender.innerHTML = data.movie.gender.name;
             gender.href = `/gender-show.html?id=${data.movie.gender_id}`;
             tagline.innerHTML = data.movie.tagline;
@@ -144,25 +148,25 @@ async function fetchMovieData() {
             }
 
             if (directorName) {
-                directorCastDetails.innerHTML += `<a href="#" class="cast-name" data-id="${directorName.id}">${directorName.name}</a>`;
+                directorCastDetails.innerHTML += `<a href="/account-show.html?id=${directorName.id}" class="cast-name" data-id="${directorName.id}">${directorName.name}</a>`;
             }
             if (scriptWriterName) {
-                writeScripter.innerHTML += `<a href="#" class="cast-name" data-id="${scriptWriterName.id}">${scriptWriterName.name}</a>`;
+                writeScripter.innerHTML += `<a href="/account-show.html?id=${scriptWriterName.id}" class="cast-name" data-id="${scriptWriterName.id}">${scriptWriterName.name}</a>`;
             }
             if (soundEngineerName) {
-                sound.innerHTML += `<a href="#" class="cast-name" data-id="${soundEngineerName.id}">${soundEngineerName.name}</a>`;
+                sound.innerHTML += `<a href="/account-show.html?id=${soundEngineerName.id}" class="cast-name" data-id="${soundEngineerName.id}">${soundEngineerName.name}</a>`;
             }
             if (photoDirectorName) {
-                photoDirector.innerHTML += `<a href="#" class="cast-name" data-id="${photoDirectorName.id}">${photoDirectorName.name}</a>`;
+                photoDirector.innerHTML += `<a href="/account-show.html?id=${photoDirectorName.id}" class="cast-name" data-id="${photoDirectorName.id}">${photoDirectorName.name}</a>`;
             }
             if (editorName) {
-                editor.innerHTML += `<a href="#" class="cast-name" data-id="${editorName.id}">${editorName.name}</a>`;
+                editor.innerHTML += `<a href="/account-show.html?id=${editorName.id}" class="cast-name" data-id="${editorName.id}">${editorName.name}</a>`;
             }
             if (productorName) {
-                productor.innerHTML += `<a href="#" class="cast-name" data-id="${productorName.id}">${productorName.name}</a>`;
+                productor.innerHTML += `<a href="/account-show.html?id=${productorName.id}" class="cast-name" data-id="${productorName.id}">${productorName.name}</a>`;
             }
             if (artDirectorName) {
-                artDirector.innerHTML += `<a href="#" class="cast-name" data-id="${artDirectorName.id}">${artDirectorName.name}</a>`;
+                artDirector.innerHTML += `<a href="/account-show.html?id=${artDirectorName.id}" class="cast-name" data-id="${artDirectorName.id}">${artDirectorName.name}</a>`;
             }
 
             play.addEventListener("click", function () {
@@ -173,7 +177,7 @@ async function fetchMovieData() {
                 return array
                     .map(
                         (user) =>
-                            `<a href="#" class="cast-name" data-id="${user.id}">${user.name}</a>`
+                            `<a href="/account-show.html?id=${user.id}" class="cast-name" data-id="${user.id}">${user.name}</a>`
                     )
                     .join(", ");
             }
@@ -207,5 +211,4 @@ tabs.forEach((tab) => {
     });
 });
 
-fixMenuWhenScrollling();
 

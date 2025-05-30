@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/admin/admin.css">
     <link id="favicon" rel="icon" type="image/png" href="/images/indie-logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <title>Editar Contenido</title>
+    <title>Crear Contenido</title>
 </head>
 <body>
     <div class="menu">
@@ -32,33 +32,16 @@
                     <i class="fas fa-film"></i>
                     <span>Contenido</span>
                 </li>
-                <li class="links" data-content="list-categories">
-                    <i class="fa-solid fa-layer-group"></i>
-                    <span>Categorías</span>
-                </li>
-                <li class="links" data-content="list-genders">
-                    <i class="fa-solid fa-rocket"></i>
-                    <span>Géneros</span>
-                </li>
-                <li class="links" data-content="list-users">
-                    <i class="fas fa-user"></i>
-                    <span>Usuarios</span>
-                </li>
-                <li class="links" data-content="list-rols">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Roles</span>
-                </li>
-            </ul>
         </aside>
 
         <main class="admin-main">
             <div id="content-area">
                 
-                <div class="container" id="edit-content">
-                    <h1><i class="fas fa-pen"></i> Editar Contenido</h1>
+                <div class="container" id="add-content">
+                    <h1><i class="fas fa-film"></i> Añadir Nuevo Contenido</h1>
                     
                     <div id="success-message" class="success-message">
-                        ¡Contenido editado con éxito!
+                        Contenido subido con éxito!
                     </div>
                     
                     <form id="content-form">
@@ -82,20 +65,20 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="cover">Imagen de portada</label>
+                            <label for="cover">Imagen de portada (JPG)</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="cover">
                                     <i class="fas fa-image"></i>
-                                    <span id="cover-label-text">Seleccionar archivo...</span>
+                                    <span id="cover-label-text">Seleccionar archivo JPG...</span>
                                 </label>
-                                <input type="file" id="cover" name="cover" class="file-input" accept="jpg">
+                                <input type="file" id="cover" name="cover" class="file-input" accept="image/jpeg" required>
                                 <div id="cover-name" class="file-name"></div>
                             </div>
                             <div id="cover-error" class="error-message"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="trailer">Trailer</label>
+                            <label for="trailer">Trailer (Opcional)</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="trailer">
                                     <i class="fas fa-film"></i>
@@ -114,25 +97,10 @@
                             </select>
                             <div id="gender_id-error" class="error-message"></div>
                         </div>
-
-                        <div class="form-group">
-							<label for="checkbox-container">Vincular a categoría/s</label>
-							<div id="categories-container"></div>
-							<div id="category-error" class="error-message"></div>
-						</div>
-
-                        <!-- Checkbox para cambiar archivo de contenido -->
-                        <div class="form-group">
-                            <label class="checkbox-container">
-                            <input type="checkbox" id="change-content-file" name="change_content_file">
-                            <span class="checkmark"></span>
-                            Cambiar el archivo del contenido
-                            </label>
-                        </div>
                         
-                        <div id="type-content" class="form-group hidden">
+                        <div class="form-group">
                             <label for="type">Formato del contenido</label>
-                            <select id="type" name="type">
+                            <select id="type" name="type" required>
                                 <option value="" disabled selected>Selecciona un formato</option>
                                 <option value="video/mp4">MP4</option>
                                 <option value="application/vnd.apple.mpegurl">HLS</option>
@@ -141,14 +109,14 @@
                         </div>
 
                         <!-- Contenido normal -->
-                        <div id="single-content" class="form-group hidden">
+                        <div id="single-content" class="form-group">
                             <label for="content">Archivo de contenido</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="content">
                                     <i class="fas fa-file-video"></i>
-                                    <span id="content-label-text">Seleccionar archivo...</span>
+                                    <span id="content-label-text">Seleccionar archivo MP4...</span>
                                 </label>
-                                <input type="file" id="content" name="content" class="file-input">
+                                <input type="file" id="content" name="content" class="file-input" accept=".mp4" required>
                                 <div id="content-name" class="file-name"></div>
                             </div>
                             <div id="content-error" class="error-message"></div>
@@ -213,7 +181,7 @@
                         
                         <div class="form-group">
                             <label for="duration-type-name">Tipo de contenido</label>
-                            <select id="duration-type-name" name="duration_type_name">
+                            <select id="duration-type-name" name="duration_type_name" required>
                                 <option value="" disabled selected>Selecciona un tipo</option>
                                 <option value="cortometraje">Cortometraje</option>
                                 <option value="mediometraje">Mediometraje</option>
@@ -223,11 +191,11 @@
 
                         <div class="loading" id="loading">
                             <div class="loading-spinner"></div>
-                            <p>Editando contenido, por favor espere...</p>
+                            <p>Subiendo contenido, por favor espere...</p>
                         </div>
                         
                         <button type="submit" class="btn">
-                            <i class="fas fa-pen"></i> Editar Contenido
+                            <i class="fas fa-upload"></i> Subir Contenido
                         </button>
                     </form>
                 </div>
@@ -254,7 +222,7 @@
     </footer>
 
     <script src="/ckeditor/ckeditor.js"></script>
-    <script type="module" src="/js/admin/admin.js"></script>
-    <script type="module" src="/js/admin/editContent.js"></script>
+    <script type="module" src="/js/director.js"></script>
+    <script type="module" src="/js/directorAddContent.js"></script>
 </body>
 </html>

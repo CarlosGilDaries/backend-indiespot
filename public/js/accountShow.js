@@ -21,10 +21,14 @@ checkDeviceID(api, token);
 
 document.addEventListener('DOMContentLoaded', function () {
   const categoriesDropDown = document.getElementById("categories");
-  const gendersDropDown = document.getElementById("genders");
+    const gendersDropDown = document.getElementById("genders");
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("id");
+
   dropDownTypeMenu(categoriesDropDown, "categories", "category");
-  dropDownTypeMenu(gendersDropDown, "genders", "gender");
-  fetch(api + 'current-user', {
+    dropDownTypeMenu(gendersDropDown, "genders", "gender");
+    
+  fetch(api + `users/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -32,9 +36,10 @@ document.addEventListener('DOMContentLoaded', function () {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.success) {
-        const user = data.user;
-        const rol = data.rol;
+        if (data.success) {
+            console.log(data);
+        const user = data.data.user;
+        const rol = data.data.user.rol;
 
         if (user) {
           const tableBody = document
@@ -104,30 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
           td1.innerHTML = 'Rol';
           const td2 = tr.insertCell();
           td2.innerHTML = rol.name;
-
-          if (user.type == 'admin') {
-            const btn = document.createElement('button');
-            btn.innerHTML = 'Panel de Admin';
-            btn.classList = 'admin-btn';
-            const div = document.querySelector('.btn-container');
-            div.appendChild(btn);
-
-            btn.addEventListener('click', function () {
-              window.location.href = '/admin/list-content.html';
-            })
-          }
-
-          else if (rol.name == 'Director/a') {
-            const btn = document.createElement('button');
-            btn.innerHTML = 'Administrar contenido';
-            btn.classList = 'director-btn';
-            const div = document.querySelector('.btn-container');
-            div.appendChild(btn);
-
-            btn.addEventListener('click', function () {
-              window.location.href = '/list-content.html';
-            })
-          }
         }
       }
     })
@@ -149,4 +130,3 @@ document.getElementById('logout-button').addEventListener('click', async functio
 });
 
 fixMenuWhenScrollling();
-

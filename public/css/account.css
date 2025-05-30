@@ -69,6 +69,7 @@ td a:hover {
 
 .director-btn,
 .admin-btn {
+  margin-top: 30px;
     width: 170px;
     padding: 12px;
     border: none;
@@ -81,7 +82,7 @@ td a:hover {
 }
 
 .director-btn {
-  width: 200px;
+  width: 230px;
 }
 
 .director-btn:hover,
