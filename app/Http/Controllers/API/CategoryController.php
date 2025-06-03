@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-			$categories = Category::with(['contents' => function ($query) {
+			$categories = Category::with(['contents.gender' => function ($query) {
 				$query->orderBy('created_at', 'desc');
 			}])
             ->where('render_at_index', 1)

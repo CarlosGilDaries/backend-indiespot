@@ -1,43 +1,65 @@
+import { formatDuration } from "./formatDuration.js";
+
 export function initPriorityBanner(categoriesData) {
-	try {
-		// Encontrar la categoría con priority 1
-		const priorityCategory = categoriesData.categories.find(cat => cat.priority === 1);
-		if (!priorityCategory || !priorityCategory.contents || priorityCategory.contents.length === 0) {
-			console.warn('No se encontraron películas en la categoría prioritaria');
-			return;
-		}
+    try {
+        console.log(categoriesData);
+        // Encontrar la categoría con priority 1
+        const priorityCategory = categoriesData.categories.find(
+            (cat) => cat.priority === 1
+        );
+        if (
+            !priorityCategory ||
+            !priorityCategory.contents ||
+            priorityCategory.contents.length === 0
+        ) {
+            console.warn(
+                "No se encontraron películas en la categoría prioritaria"
+            );
+            return;
+        }
 
-		const bannerSection = document.querySelector('.background-banner.priority-first');
-		const videoElement = bannerSection.querySelector('video');
-		const sourceElement = videoElement.querySelector('source');
-		const titleElement = bannerSection.querySelector('.priority-first-movie-title');
-		const playButton = bannerSection.querySelector('.play-button');
-		const movieInfo = bannerSection.querySelector('.movie-info');
+        const bannerSection = document.querySelector(
+            ".background-banner.priority-first"
+        );
+        const videoElement = bannerSection.querySelector("video");
+        const sourceElement = videoElement.querySelector("source");
+        const titleElement = bannerSection.querySelector(
+            ".priority-first-movie-title"
+        );
+        const playButton = bannerSection.querySelector(".play-button");
+        const movieInfo = bannerSection.querySelector(".movie-info");
+        const gender = document.getElementById("banner-gender");
+        const duration = document.getElementById("banner-duration");
 
-		let currentMovieIndex = 0;
-		const movies = priorityCategory.contents;
-		let isTransitioning = false; // Bandera para evitar interrupciones
+        let currentMovieIndex = 0;
+        const movies = priorityCategory.contents.slice(0, 8); //mostrar 8 películas como máximo
+        let isTransitioning = false; // Bandera para evitar interrupciones
 
-		// Función para cargar una película con transición
-		async function loadMovie(index) {
-			if (isTransitioning) return;
-			isTransitioning = true;
+        // Función para cargar una película con transición
+        async function loadMovie(index) {
+            if (isTransitioning) return;
+            isTransitioning = true;
 
-			const movie = movies[index];
+            const movie = movies[index];
 
-			// Fade out del contenido actual
-			movieInfo.classList.add('title-transition');
-			titleElement.style.opacity = '0';
-			videoElement.style.opacity = '0';
+            // Fade out del contenido actual
+            movieInfo.classList.add("title-transition");
+            titleElement.style.opacity = "0";
+            videoElement.style.opacity = "0";
+            gender.style.opacity = "0";
+            duration.style.opacity = "0";
 
-			// Esperar a que complete la transición de salida
-			await new Promise(resolve => setTimeout(resolve, 200));
+            // Esperar a que complete la transición de salida
+            await new Promise((resolve) => setTimeout(resolve, 200));
 
-			// Actualizar contenido
-			titleElement.textContent = movie.title;
-			playButton.onclick = () => window.location.href = `/content/${movie.slug}`;
+            // Actualizar contenido
+            titleElement.textContent = movie.title;
+            gender.textContent = movie.gender.name;
+            duration.textContent = formatDuration(movie.duration);
+            playButton.onclick = () =>
+                (window.location.href = `/content/${movie.slug}`);
 
-			if (movie.trailer) {
+            if (movie.trailer) {
                 // Detener video anterior y reiniciar completamente
                 videoElement.pause();
                 videoElement.removeAttribute("poster"); // evitar parpadeo del póster anterior
@@ -72,49 +94,54 @@ export function initPriorityBanner(categoriesData) {
                 videoElement.load();
             }
 
-			// Fade in del nuevo contenido
-			await new Promise(resolve => setTimeout(resolve, 50)); // Pequeña pausa
-			titleElement.style.opacity = '1';
-			videoElement.style.opacity = '1';
+            // Fade in del nuevo contenido
+            await new Promise((resolve) => setTimeout(resolve, 50)); // Pequeña pausa
+            titleElement.style.opacity = "1";
+            videoElement.style.opacity = "1";
+            gender.style.opacity = "1";
+            duration.style.opacity = "1";
 
-			// Resetear estado de transición después de completar
-			setTimeout(() => {
-				movieInfo.classList.remove('title-transition');
-				isTransitioning = false;
-			}, 500);
-		}
+            // Resetear estado de transición después de completar
+            setTimeout(() => {
+                movieInfo.classList.remove("title-transition");
+                isTransitioning = false;
+            }, 500);
+        }
 
-		// Configurar flechas de navegación
-		const leftArrow = document.createElement('button');
-		leftArrow.className = 'scroll-left-banner';
-		leftArrow.innerHTML = '&lt;';
+        // Configurar flechas de navegación
+        const leftArrow = document.createElement("button");
+        leftArrow.className = "scroll-left-banner";
+        leftArrow.innerHTML = "&lt;";
 
-		const rightArrow = document.createElement('button');
-		rightArrow.className = 'scroll-right-banner';
-		rightArrow.innerHTML = '&gt;';
+        const rightArrow = document.createElement("button");
+        rightArrow.className = "scroll-right-banner";
+        rightArrow.innerHTML = "&gt;";
 
-		// Añadir flechas al DOM
-		bannerSection.appendChild(leftArrow);
-		bannerSection.appendChild(rightArrow);
+        // Añadir flechas al DOM
+        bannerSection.appendChild(leftArrow);
+        bannerSection.appendChild(rightArrow);
 
-		// Eventos de flechas con manejo de transición
-		leftArrow.addEventListener('click', () => {
-			currentMovieIndex = (currentMovieIndex - 1 + movies.length) % movies.length;
-			loadMovie(currentMovieIndex);
-		});
+        // Eventos de flechas con manejo de transición
+        leftArrow.addEventListener("click", () => {
+            currentMovieIndex =
+                (currentMovieIndex - 1 + movies.length) % movies.length;
+            loadMovie(currentMovieIndex);
+        });
 
-		rightArrow.addEventListener('click', () => {
-			currentMovieIndex = (currentMovieIndex + 1) % movies.length;
-			loadMovie(currentMovieIndex);
-		});
+        rightArrow.addEventListener("click", () => {
+            currentMovieIndex = (currentMovieIndex + 1) % movies.length;
+            loadMovie(currentMovieIndex);
+        });
 
-		// Estilos iniciales para la transición
-		videoElement.style.transition = 'opacity 0.5s ease-in-out';
-		titleElement.style.transition = 'opacity 0.2s ease-in-out';
+        // Estilos iniciales para la transición
+        videoElement.style.transition = "opacity 0.5s ease-in-out";
+        titleElement.style.transition = "opacity 0.2s ease-in-out";
+        gender.style.transition = "opacity 0.2s ease-in-out";
+        duration.style.transition = "opacity 0.2s ease-in-out";
 
-		// Cargar la primera película
-		loadMovie(0);
-	} catch(error) {
-		console.log(error);
-	}
+        // Cargar la primera película
+        loadMovie(0);
+    } catch (error) {
+        console.log(error);
+    }
 }

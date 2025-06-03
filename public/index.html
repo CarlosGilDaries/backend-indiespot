@@ -10,57 +10,54 @@
     <title>IndieSpot</title>
 </head>
 <body>
+    <header>
+        <div class="menu">
+            <nav>
+                <ul class="nav left-nav">
+                    <li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indie logo"></a></li>
+                    <li class="left-nav-links"><a href="/">Inicio</a></li>
+                    <li class="dropdown left-nav-links">
+                        <a href="/categories.html" class="dropdown-toggle">Categorías</a>
+                        <ul class="dropdown-menu" id="categories">
+                        </ul>
+                    </li>
+                    <li class="dropdown left-nav-links">
+                        <a href="/genders.html" class="dropdown-toggle">Géneros</a>
+                        <ul class="dropdown-menu" id="genders">
+                        </ul>
+                    </li>
+                    <li class="left-nav-links"><a href="#">Favoritos</a></li>
+                    <li class="left-nav-links"><a href="/plans.html">Planes</a></li>
+                </ul>
+            </nav>
+            <nav>
+                <ul class="nav right-nav">
+                    <li><a href="#"><img src="/images/search-icon.png" alt="Search"></a></li>
+                    <li class="user"><a href="/account"><img src="/images/user-icon.png" alt="User"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+	<section class="background-banner category priority-first">
+		<video muted autoplay loop>
+			<source src="" type="video/mp4">
+			<img src="" alt="">
+		</video>
 
-    <section class="background-banner category priority-first">
-        <video muted autoplay loop poster="">
-            <source src="" type="video/mp4">
-            <img src="" alt="Background image">
-        </video>
-
-        <div class="banner">
-            <div class="menu">
-                <nav>
-					<ul class="nav left-nav">
-						<li class="logo"><a href="/"><img src="/images/indie-logo.png" alt="Indiespot logo"></a></li>
-						<li class="left-nav-links"><a href="/">Inicio</a></li>
-						<li class="dropdown left-nav-links">
-							<a href="/categories.html" class="dropdown-toggle">Categorías</a>
-							<ul class="dropdown-menu" id="categories">
-							</ul>
-						</li>
-						<li class="dropdown left-nav-links">
-							<a href="/genders.html" class="dropdown-toggle">Géneros</a>
-							<ul class="dropdown-menu" id="genders">
-							</ul>
-						</li>
-						<li class="left-nav-links"><a href="#">Favoritos</a></li>
-					</ul>
-                </nav>
-                <nav>
-                    <ul class="nav right-nav">
-                        <li><a href="#"><img src="/images/search-icon.png" alt="Search"></a></li>
-                        <li class="user"><a href="/account"><img src="/images/user-icon.png" alt="User"></a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="content-banner">
+		<div class="banner">
+			<div class="content-banner">
 				<div class="movie-info">
 					<h1 class="priority-first-movie-title"></h1>
+                    <h3><span id="banner-gender"></span> · <span id="banner-duration"></span></h3>
 					<button class="play-button">Ver Ahora</button>
 				</div>
 			</div>
-        </div>
-    </section>
+		</div>
+	</section>
 
     <main class="index-main"></main>
-        <!--<section class="content-type">
-            <h2>Contenido en vídeo</h2>
-            <div class="content-wrapper">
-                <button class="scroll-left hidden">&lt;</button>
-                <div id="video-content" class="content-container"></div>
-                <button class="scroll-right hidden">&gt;</button>
-            </div>
-        </section>-->
+
     <footer class="footer">
         <div class="footer-container">
             <div class="info">
