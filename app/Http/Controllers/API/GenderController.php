@@ -14,7 +14,7 @@ class GenderController extends Controller
         public function index()
     {
         try {
-        $genders = Gender::all();
+        $genders = Gender::with('contents')->get();
 
         return response()->json([
             'success' => true,
@@ -94,7 +94,7 @@ class GenderController extends Controller
     public function show(string $id)
     {
         try {
-            $gender = Gender::with('contents')->where('id', $id)->first();
+            $gender = Gender::with('contents.gender')->where('id', $id)->first();
             Log::debug('id: ' . $id);
 
             return response()->json([

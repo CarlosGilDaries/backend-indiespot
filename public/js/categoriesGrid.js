@@ -1,6 +1,7 @@
 import { renderTypeGrid } from './modules/renderTypeGrid.js';
 import { dropDownTypeMenu } from './modules/dropDownTypeMenu.js';
 import { fixMenuWhenScrollling } from "./modules/fixMenuWhenScrolling.js";
+import { setupLoginSignupButtons } from './modules/loginSignupButtons.js';
 
 const categoriesDropDown = document.getElementById('categories');
 const gendersDropDown = document.getElementById('genders');
@@ -14,3 +15,4 @@ const categoriesData = await categoriesResponse.json();
 renderTypeGrid('/api/categories', 'categories', 'category');
 
 fixMenuWhenScrollling();
+setupLoginSignupButtons();
