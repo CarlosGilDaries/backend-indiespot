@@ -79,21 +79,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Inicializar
   showStep(0);
-
-  // Manejar envío del formulario
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    // Validar contraseñas
-    const password = document.getElementById('password').value;
-    const passwordConfirmation = document.getElementById(
-      'password_confirmation'
-    ).value;
-
-    if (password !== passwordConfirmation) {
-      document.getElementById('error-message').textContent =
-        'Las contraseñas no coinciden';
-      document.getElementById('error-message').style.display = 'block';
-      return;
-    }
-  });
 });
