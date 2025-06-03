@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function dropDownMenu()
 	{
 		try {
-			$categories = Category::orderBy('priority')->get();
+			$categories = Category::orderBy('priority')->with('contents.gender')->get();
 
 			return response()->json([
 				'success' => true,
@@ -94,7 +94,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         try {
-            $category = Category::with('contents')->where('id', $id)->first();
+            $category = Category::with('contents.gender')->where('id', $id)->first();
 
             return response()->json([
                 'success' => true,

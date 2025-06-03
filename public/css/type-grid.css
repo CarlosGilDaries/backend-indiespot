@@ -25,13 +25,23 @@ main {
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: var(--color-gray);
-    border: 1px solid rgba(255, 255, 255, 0.05);
 	display: flex;
 	align-items: center;
 	justify-content: center;
     position: relative;
     text-align: center; 
-    padding: 15px; 
+    padding: 15px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.overlay-text {
+	background: rgba(240, 240, 240, 0.8);
+	padding: 10px 15px;
+	border-radius: 5px;
+	z-index: 1;
 }
 
 .category-name,
