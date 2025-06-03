@@ -3,10 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
 Route::get('/file/{path}', function ($path) {
     $filePathMovie = "content/{$path}";
     $filePathUsers = "users/{$path}";

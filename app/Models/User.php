@@ -23,7 +23,6 @@ class User extends Authenticatable
         'surnames',
         'email',
         'password',
-        'type',
         'curriculum',
         'portfolio',
         'rol_id',

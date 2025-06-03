@@ -175,10 +175,11 @@ class RolController extends Controller
 			<div class="actions-container">
 				<button class="actions-button orders-button">Acciones</button>
 				<div class="actions-menu">
-					<a href="/admin/edit-rol.html" class="action-item content-action edit-button" data-id="'.$id.'">Editar</a>
+					<a href="/admin/edit-rol.html" 
+                    class="action-item content-action edit-button" data-id="'.$id.'">Editar</a>
                     <form class="rol-delete-form" data-id="' . $id . '">
 						<input type="hidden" name="content_id" value="' . $id . '">
-						<button class="action-item content-action delete-btn" type="submit">Eliminar</button>
+						<button class="action-item delete-btn" type="submit">Eliminar</button>
 					</form>
 				</div>
 			</div>';

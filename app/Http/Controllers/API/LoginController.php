@@ -97,7 +97,7 @@ class LoginController extends Controller
                         'user_agent' => $userAgent
                     ]);
 
-                    $token = $user->createToken($user->name . '/' . $user->email)->plainTextToken;
+                    $token = $user->createToken($user->email)->plainTextToken;
 
                     return response()->json([
                         'success' => true,

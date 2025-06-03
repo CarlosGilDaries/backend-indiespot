@@ -364,7 +364,9 @@ class ContentController extends Controller
     public function show($slug)
     {
         try {
-            $movie = Content::where('slug', $slug)->with(['users.rol', 'gender', 'categories'])->first();
+            $movie = Content::where('slug', $slug)
+                ->with(['users.rol', 'gender', 'categories'])
+                ->first();
 
             if (!$movie) {
                 return response()->json([

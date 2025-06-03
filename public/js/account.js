@@ -2,12 +2,15 @@ import { logOut } from "./modules/logOut.js";
 import { checkDeviceID } from "./modules/checkDeviceId.js";
 import { dropDownTypeMenu } from "./modules/dropDownTypeMenu.js";
 import { fixMenuWhenScrollling } from "./modules/fixMenuWhenScrolling.js";
+import { renderGridFilms } from "./modules/renderRelatedFilms.js";
 
 const token = localStorage.getItem('auth_token');
 const email = localStorage.getItem('current_user_email');
 const device_id = localStorage.getItem('device_id_' + email);
 const api = 'https://indiespot.test/api/';
 const backendURL = 'https://indiespot.test';
+const relatedFilms = document.querySelector(".related-films-container");
+const noFilmsMessage = document.querySelector('.no-films-message');
 
 if (token == null) {
     window.location.href = '/login';
@@ -24,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const gendersDropDown = document.getElementById("genders");
   dropDownTypeMenu(categoriesDropDown, "categories", "category");
   dropDownTypeMenu(gendersDropDown, "genders", "gender");
-  fetch(api + 'current-user', {
+  fetch('/api/current-user', {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -35,6 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (data.success) {
         const user = data.user;
         const rol = data.rol;
+
+        if (user.contents.lenght != 0) {
+          noFilmsMessage.style.display = 'none';
+          renderGridFilms(user.contents, relatedFilms,);
+        }
 
         if (user) {
           const tableBody = document
@@ -135,6 +143,12 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(error);
   });
 });
+
+try {
+
+} catch (error) {
+  console.log(error);
+}
 
 document.getElementById('logout-button').addEventListener('click', async function (event) {
   event.preventDefault();

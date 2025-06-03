@@ -1,6 +1,7 @@
-@import 'commons.css';
-@import 'nav.css';
-@import 'footer.css';
+@import '/css/commons.css';
+@import '/css/nav.css';
+@import '/css/grid-films.css';
+@import '/css/footer.css';
 
 body {
   background-color: var(--color-background-light);
@@ -88,6 +89,19 @@ td a:hover {
 .director-btn:hover,
 .admin-btn:hover {
     background: var(--btn-account-background-hover);
+}
+
+.related-films {
+  margin-top: 30px;
+  padding-inline: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.related-films-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
 }
 
 @media (max-width: 400px) {

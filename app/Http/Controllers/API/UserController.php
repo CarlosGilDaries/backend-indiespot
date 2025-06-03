@@ -77,7 +77,7 @@ class UserController extends Controller
     public function show(string $id)
     {
         try {
-            $user = User::with('rol')->where('id', $id)->first();
+            $user = User::with('rol', 'contents.gender')->where('id', $id)->first();
             $content = $user->contents()->get();
 
             return response()->json([
@@ -104,16 +104,19 @@ class UserController extends Controller
     {
         try {
             $user = Auth::user();
+            $userWithFilms = User::where('id', $user->id)->with('contents.gender')->first();
             $rol = Rol::where('id', $user->rol_id)->first();
 
             return response()->json([
                 'success' => true,
-                'user' => $user,
+                'user' => $userWithFilms,
                 'rol' => $rol,
                 'message' => 'Usuario obtenido con éxito'
             ]);
 
         } catch (\Exception $e) {
+            Log::error('Error: ' . $e->getMessage());
+
             return response()->json([
                 'success' => false,
                 'message' => 'Error: ' . $e->getMessage()

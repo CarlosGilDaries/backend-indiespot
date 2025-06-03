@@ -46,7 +46,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('edit-user/{id}', [UserController::class, 'update']);
     Route::delete('delete-user/', [UserController::class, 'destroy']);
 
-    //Route::get('content', [ContentController::class, 'index']);
     Route::get('content/{slug}', [ContentController::class, 'show']);
     Route::get('edit-view-content/{id}', [ContentController::class, 'editShow']);
     Route::post('add-content', [ContentController::class, 'store']);

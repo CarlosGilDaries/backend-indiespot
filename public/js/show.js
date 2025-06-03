@@ -52,13 +52,9 @@ if (device_id == null) {
 async function fetchMovieData() {
 
     try {
-        const response = await fetch(api + "content/" + movieSlug, {
+        const response = await fetch("/api/content/" + movieSlug, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json",
-                "User-Device-ID": device_id,
-                "User-Ip": ip,
-                "User-Agent": userAgent,
                 Authorization: `Bearer ${token}`,
             },
         });

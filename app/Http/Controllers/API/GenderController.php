@@ -19,7 +19,7 @@ class GenderController extends Controller
         return response()->json([
             'success' => true,
             'genders' => $genders,
-            'message' => 'Planes obtenidos con éxito.',
+            'message' => 'Géneros obtenidos con éxito.',
         ], 200);
 
         } catch (\Exception $e) {
