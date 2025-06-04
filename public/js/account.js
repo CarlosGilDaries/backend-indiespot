@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const user = data.user;
         const rol = data.rol;
 
-        if (user.contents.lenght != 0) {
-          noFilmsMessage.style.display = 'none';
-          renderGridFilms(user.contents, relatedFilms,);
+        if (user.contents.length != 0) {
+            noFilmsMessage.style.display = "none";
+            renderGridFilms(user.contents, relatedFilms);
         }
 
         if (user) {

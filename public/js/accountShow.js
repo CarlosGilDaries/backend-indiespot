@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const user = data.data.user;
                 const rol = data.data.user.rol;
 
-                if (user.contents.lenght != 0) {
+                if (user.contents.length != 0) {
                     noFilmsMessage.style.display = "none";
                     renderGridFilms(user.contents, relatedFilms);
                 }
