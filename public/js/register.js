@@ -45,10 +45,14 @@ document.addEventListener('DOMContentLoaded', async function () {
 
           // Validar contraseñas
           if (password !== password_confirmation) {
-              document.getElementById("error-message").textContent =
+              document.querySelector(".password-message").textContent =
                   "Las contraseñas no coinciden";
-              document.getElementById("error-message").style.display = "block";
               return;
+          }
+          else if (password == password_confirmation && password.length < 6) {
+            document.querySelector(".password-message").textContent =
+                "Mínimo 6 caracteres";
+            return;
           }
 
           const formData = new FormData();
@@ -71,6 +75,18 @@ document.addEventListener('DOMContentLoaded', async function () {
 
           const data = await response.json();
 
+          if (!data.success && data.errors.email) {
+            document.getElementById("error-message").style.display = 'block';
+              document.getElementById('error-message').textContent = data.errors.email;
+              setTimeout(function () {
+                  document.getElementById("error-message").style.display =
+                      "none";
+              }, 4000);
+              return;
+          }
+
+          if (!data.success) return;
+
           localStorage.setItem("auth_token", data.data.token);
           localStorage.setItem(
               "user_" + data.data.user.id,
@@ -84,7 +100,6 @@ document.addEventListener('DOMContentLoaded', async function () {
           }
       });
   } catch (error) {
-    alert(error);
     console.error('Error en la solicitud:', error);
     document.getElementById('error-message').textContent =
       'Credenciales incorrectas';

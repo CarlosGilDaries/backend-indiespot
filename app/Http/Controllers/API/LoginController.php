@@ -9,15 +9,36 @@ use App\Models\UserSession;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
     /**
      * Store a newly created resource in storage.
      */
-        public function register(Request $request)
+    public function register(Request $request)
     {
         try {
+            $validator = Validator::make($request->all(), [
+                'curriculum' => 'nullable|file|mimes:pdf',
+                'name' => 'required|string|max:50',
+                'surnames' => 'required|string|max:100',
+                'email' => 'required|email|unique:users,email',
+                'portfolio' => 'nullable|url',
+                'password' => 'required|confirmed|min:6',
+                'rol' => 'required|integer|exists:rols,id',
+            ], [
+                'email.unique' => 'El email introducido ya existe en la base de datos.',
+            ]);
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => $validator->errors(),
+                    'message' => 'La validación ha fallado.'
+                ], 422);
+            }
+
             $user = new User();
             $curriculum = $request->file('curriculum');
             $user->name = $request->input('name');

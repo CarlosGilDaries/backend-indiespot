@@ -31,18 +31,21 @@
                             <span class="icon"><ion-icon name="person"></ion-icon></span>
                             <input type="text" id="name" required>
                             <label>Nombre</label>
+                            <p class="error-message"></p>
                         </div>
                         
                         <div class="input-box">
                             <span class="icon"><ion-icon name="people"></ion-icon></span>
                             <input type="text" id="surnames" required>
                             <label>Apellidos</label>
+                            <p class="error-message"></p>
                         </div>
                         
                         <div class="input-box">
                             <span class="icon"><ion-icon name="mail"></ion-icon></span>
                             <input type="email" id="email" required>
                             <label>Email</label>
+                            <p class="error-message"></p>
                         </div>
                     </div>
                     
@@ -53,18 +56,21 @@
                             <select id="rol_id" required>
                                 <option value="" disabled selected>Rol</option>
                             </select>
+                            <p class="error-message"></p>
                         </div>
                         
                         <div class="input-box">
                             <span class="icon"><ion-icon name="document"></ion-icon></span>
                             <input type="text" id="portfolio" required>
-                            <label>Url Portfolio (Opcional)</label>
+                            <label>Portfolio Url (Opcional)</label>
+                            <p class="error-message"></p>
                         </div>
                         
                         <div class="input-box" id="file">
-                            <input type="file" id="curriculum">
-                            <label id="cv-label">Curriculum (Opcional)</label>
+                            <input type="file" id="curriculum" accept="application/pdf">
+                            <label id="cv-label">Curriculum PDF (Opcional)</label>
                             <span class="file-name" id="curriculum-name"></span>
+                            <p class="error-message"></p>
                         </div>
                     </div>
  
@@ -80,6 +86,7 @@
                             <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
                             <input type="password" id="password_confirmation" required>
                             <label>Confirmar contraseña</label>
+                            <p class="error-message password-message"></p>
                         </div>
                     </div>
                 </div>

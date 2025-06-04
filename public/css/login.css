@@ -165,6 +165,12 @@ button:hover {
     padding-bottom: 10px;
 }
 
+#error-message,
+.error-message {
+    color: red;
+    font-weight: 600;
+}
+
 @media (max-width: 360px) {
     .login-box {
         width: 100%;
