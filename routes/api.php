@@ -20,7 +20,8 @@ Route::get('users', [UserController::class, 'index']);
 Route::get('content', [ContentController::class, 'index']);
 
 Route::get('rols', [RolController::class, 'index']);
-Route::get('categories', [CategoryController::class, 'index']);
+Route::get('index-categories', [CategoryController::class, 'index']);
+Route::get('categories', [CategoryController::class, 'dropDownMenu']);
 Route::get('category/{id}', [CategoryController::class, 'show']);
 Route::get('genders', [GenderController::class, 'index']);
 Route::get('gender/{id}', [GenderController::class, 'show']);

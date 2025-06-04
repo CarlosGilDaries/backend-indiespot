@@ -4,7 +4,7 @@ async function initContent() {
     const backendAPI = "https://indiespot.test/api/";
     const authToken = localStorage.getItem("auth_token");
 
-    setupGendersCategories(backendAPI, authToken);
+    setupGendersCategories(authToken);
 
     // Mostrar nombre de archivos seleccionados
     const setupFileInput = (inputId, nameId, labelId) => {
@@ -310,7 +310,7 @@ async function initContent() {
             }
 
             try {
-                const response = await fetch(backendAPI + "add-content", {
+                const response = await fetch("/api/add-content", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer ${authToken}`,
@@ -378,19 +378,19 @@ async function initContent() {
 
 initContent();
 
-async function setupGendersCategories(backendAPI, authToken) {
+async function setupGendersCategories(authToken) {
     try {
         const selectGender = document.getElementById("gender_id");
         const categoriesContainer = document.getElementById(
             "categories-container"
         );
         let categoriesContainerTextContent = "";
-        const genderResponse = await fetch(backendAPI + "genders", {
+        const genderResponse = await fetch("/api/genders", {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
         });
-        const categoryResponse = await fetch(backendAPI + "categories", {
+        const categoryResponse = await fetch("/api/categories", {
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },

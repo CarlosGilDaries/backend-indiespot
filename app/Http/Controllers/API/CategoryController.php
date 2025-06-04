@@ -41,10 +41,12 @@ class CategoryController extends Controller
 	{
 		try {
 			$categories = Category::orderBy('priority')->with('contents.gender')->get();
+            $priorities = Category::all()->sortBy('priority')->pluck('priority')->toArray();
 
 			return response()->json([
 				'success' => true,
 				'categories' => $categories,
+                'priorities' => $priorities
 			], 200);
 
 		} catch (\Exception $e) {

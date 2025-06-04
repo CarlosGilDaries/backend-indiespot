@@ -8,7 +8,7 @@ async function editCategoryForm() {
 
     async function loadCategoryData(id) {
         try {
-            const priorityResponse = await fetch(backendAPI + "categories", {
+            const priorityResponse = await fetch("/api/categories", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

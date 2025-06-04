@@ -39,9 +39,6 @@ async function editContentForm() {
   function toggleContentFiles(type) {
     const singleContent = document.getElementById('single-content');
     const hlsContent = document.getElementById('hls-content');
-    const zip1 = document.getElementById("ts1");
-    const zip2 = document.getElementById("ts2");
-    const zip3 = document.getElementById("ts3");
 
     singleContent.classList.add('hidden');
     hlsContent.classList.add('hidden');

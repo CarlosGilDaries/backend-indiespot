@@ -31,7 +31,7 @@ if (device_id == null && token != null) {
 
 async function indexData(api, backendURL) {
     try {
-        const categoriesResponse = await fetch(api + "categories");
+        const categoriesResponse = await fetch("/api/index-categories");
         const categoriesData = await categoriesResponse.json();
         const categoriesDropDown = document.getElementById("categories");
         const gendersDropDown = document.getElementById("genders");
