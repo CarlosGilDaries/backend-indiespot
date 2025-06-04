@@ -84,6 +84,7 @@ textarea {
     color: var(--error-message-color);
     font-size: 0.9rem;
     margin-top: 0.25rem;
+    font-weight: 600;
 }
 
 .success-message {

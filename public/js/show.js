@@ -79,13 +79,13 @@ async function fetchMovieData() {
             document.title = data.movie.title + " - IndieSpot";
             const users = data.movie.users;
 
-            let directorName;
-            let photoDirectorName;
-            let artDirectorName;
-            let editorName;
-            let scriptWriterName;
-            let productorName;
-            let soundEngineerName;
+            let directorName = [];
+            let photoDirectorName = [];
+            let artDirectorName = [];
+            let editorName = [];
+            let scriptWriterName = [];
+            let productorName = [];
+            let soundEngineerName = [];
             let actorsNames = [];
             let operatorsNames = [];
 
@@ -97,37 +97,38 @@ async function fetchMovieData() {
 
                 switch (user.rol.name) {
                     case "Director/a":
-                        directorName = userObj;
+                        directorName.push(userObj);
                         break;
                     case "Director/a de Fotografía":
-                        photoDirectorName = userObj;
+                        photoDirectorName.push(userObj);
                         break;
                     case "Actor/Actriz":
                         actorsNames.push(userObj);
                         break;
                     case "Guionista":
-                        scriptWriterName = userObj;
+                        scriptWriterName.push(userObj);
                         break;
                     case "Productor/a":
-                        productorName = userObj;
+                        productorName.push(userObj);
                         break;
                     case "Operador/a":
                         operatorsNames.push(userObj);
                         break;
                     case "Ingeniero/a de Sonido":
-                        soundEngineerName = userObj;
+                        soundEngineerName.push(userObj);
                         break;
                     case "Editor/a":
-                        editorName = userObj;
+                        editorName.push(userObj);
                         break;
-                    case "Director/a de arte":
-                        artDirectorName = userObj;
+                    case "Director/a de Arte":
+                        artDirectorName.push(userObj);
                         break;
                 }
             });
 
-            director.innerHTML = directorName.name;
-            director.href = `/account-show.html?id=${directorName.id}`;
+            if (directorName.length > 0) {
+                director.innerHTML = buildBannerLinks(directorName);
+            }
             gender.innerHTML = data.movie.gender.name;
             gender.href = `/gender-show.html?id=${data.movie.gender_id}`;
             tagline.innerHTML = data.movie.tagline;
@@ -143,26 +144,26 @@ async function fetchMovieData() {
                 operators.innerHTML += buildLinks(operatorsNames);
             }
 
-            if (directorName) {
-                directorCastDetails.innerHTML += `<a href="/account-show.html?id=${directorName.id}" class="cast-name" data-id="${directorName.id}">${directorName.name}</a>`;
+            if (directorName.length > 0) {
+                directorCastDetails.innerHTML += buildLinks(directorName);
             }
-            if (scriptWriterName) {
-                writeScripter.innerHTML += `<a href="/account-show.html?id=${scriptWriterName.id}" class="cast-name" data-id="${scriptWriterName.id}">${scriptWriterName.name}</a>`;
+            if (scriptWriterName.length > 0) {
+                writeScripter.innerHTML += buildLinks(scriptWriterName);
             }
-            if (soundEngineerName) {
-                sound.innerHTML += `<a href="/account-show.html?id=${soundEngineerName.id}" class="cast-name" data-id="${soundEngineerName.id}">${soundEngineerName.name}</a>`;
+            if (soundEngineerName.length > 0) {
+                sound.innerHTML += buildLinks(soundEngineerName);
             }
-            if (photoDirectorName) {
-                photoDirector.innerHTML += `<a href="/account-show.html?id=${photoDirectorName.id}" class="cast-name" data-id="${photoDirectorName.id}">${photoDirectorName.name}</a>`;
+            if (photoDirectorName.length > 0) {
+                photoDirector.innerHTML += buildLinks(photoDirectorName);
             }
-            if (editorName) {
-                editor.innerHTML += `<a href="/account-show.html?id=${editorName.id}" class="cast-name" data-id="${editorName.id}">${editorName.name}</a>`;
+            if (editorName.length > 0) {
+                editor.innerHTML += buildLinks(editorName);
             }
-            if (productorName) {
-                productor.innerHTML += `<a href="/account-show.html?id=${productorName.id}" class="cast-name" data-id="${productorName.id}">${productorName.name}</a>`;
+            if (productorName.length > 0) {
+                productor.innerHTML += buildLinks(productorName);
             }
-            if (artDirectorName) {
-                artDirector.innerHTML += `<a href="/account-show.html?id=${artDirectorName.id}" class="cast-name" data-id="${artDirectorName.id}">${artDirectorName.name}</a>`;
+            if (artDirectorName.length > 0) {
+                artDirector.innerHTML += buildLinks(artDirectorName);
             }
 
             play.addEventListener("click", function () {
@@ -176,6 +177,15 @@ async function fetchMovieData() {
                             `<a href="/account-show.html?id=${user.id}" class="cast-name" data-id="${user.id}">${user.name}</a>`
                     )
                     .join(", ");
+            }
+
+            function buildBannerLinks(array) {
+                return array
+                    .map(
+                        (user) =>
+                            `<a href="/account-show.html?id=${user.id}" class="cast-name" data-id="${user.id}">${user.name}</a>`
+                    )
+                    .join(" · ");
             }
 
             renderSimilars(data.movie, token);

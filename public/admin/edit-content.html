@@ -82,7 +82,7 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="cover">Imagen de portada</label>
+                            <label for="cover">Imagen de portada (JPG 1024x768)</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="cover">
                                     <i class="fas fa-image"></i>
@@ -95,7 +95,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="trailer">Trailer</label>
+                            <label for="trailer">Trailer (MP4)</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="trailer">
                                     <i class="fas fa-film"></i>
@@ -121,19 +121,23 @@
 							<div id="category-error" class="error-message"></div>
 						</div>
 
+                        <br>
+
                         <!-- Checkbox para cambiar archivo de contenido -->
                         <div class="form-group">
                             <label class="checkbox-container">
                             <input type="checkbox" id="change-content-file" name="change_content_file">
+                            ¿Quieres cambiar el archivo del contenido?
                             <span class="checkmark"></span>
-                            Cambiar el archivo del contenido
                             </label>
                         </div>
+
+                        <br>
                         
                         <div id="type-content" class="form-group hidden">
                             <label for="type">Formato del contenido</label>
                             <select id="type" name="type">
-                                <option value="" disabled selected>Selecciona un formato</option>
+                                <option value="disabled" disabled selected>Selecciona un formato</option>
                                 <option value="video/mp4">MP4</option>
                                 <option value="application/vnd.apple.mpegurl">HLS</option>
                             </select>
@@ -141,7 +145,7 @@
                         </div>
 
                         <!-- Contenido normal -->
-                        <div id="single-content" class="form-group hidden">
+                        <div id="single-content" class="form-group hidden" style="display: none;">
                             <label for="content">Archivo de contenido</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="content">
@@ -155,7 +159,7 @@
                         </div>
                         
                         <!-- Contenido HLS -->
-                        <div id="hls-content" class="form-group hidden">
+                        <div id="hls-content" class="form-group hidden" style="display: none;">
                             <label>Archivos HLS</label>
                             
                             <div class="file-input-container">
