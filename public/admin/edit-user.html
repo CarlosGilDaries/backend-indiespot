@@ -57,68 +57,71 @@
 				<div class="container" id="edit-user">
 					<!-- Añadir Usuario -->
 					<h1><i class="fas fa-pen"></i> Editar Usuario</h1>
-					<div id="edit-user-success-message" class="success-message">
+					<div id="success-message" class="success-message">
 						Usuario editado con éxito
 					</div>
-					<form id="edit-user-form">
+                    <div class="general-error-message">
+                        Errores en la validación del formulario
+                    </div>
+					<form id="form">
 						<div class="form-group">
-							<label for="edit-user-name">Nombre</label>
-							<input type="text" id="edit-user-name" name="name" required>
-							<div id="edit-user-name-error" class="error-message"></div>
+							<label for="name">Nombre</label>
+							<input type="text" id="name" name="name" required>
+							<div id="name-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-user-surnames">Apellidos</label>
-							<input type="text" id="edit-user-surnames" name="name" required>
-							<div id="edit-user-surnames-error" class="error-message"></div>
+							<label for="surnames">Apellidos</label>
+							<input type="text" id="surnames" name="name" required>
+							<div id="surnames-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-user-email">Email</label>
-							<input type="email" id="edit-user-email" name="email" required>
-							<div id="edit-user-email-error" class="error-message"></div>
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" required>
+							<div id="email-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-user-rol">Rol</label>
-                            <select id="edit-user-rol" required>
+							<label for="rol">Rol</label>
+                            <select id="rol" required>
                                 <option value="" disabled selected>Seleccione un rol</option>
                             </select>
-							<div id="edit-user-rol-error" class="error-message"></div>
+							<div id="rol-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-user-portfolio">Url Portfolio (Opcional)</label>
-                            <input type="text" id="edit-user-portfolio">
-							<div id="edit-user-portfolio-error" class="error-message"></div>
+							<label for="portfolio">Url Portfolio (Opcional)</label>
+                            <input type="text" id="portfolio">
+							<div id="portfolio-error" class="error-message"></div>
 						</div>
 
                         <div class="form-group">
-                            <label for="edit-user-curriculum">Curriculum (PDF Opcional)</label>
+                            <label for="curriculum">Curriculum (PDF Opcional)</label>
                             <div class="file-input-container">
-                                <label class="file-input-label" for="edit-user-curriculum">
+                                <label class="file-input-label" for="curriculum">
                                     <i class="fas fa-image"></i>
                                     <span id="curriculum-label-text">Seleccionar archivo...</span>
                                 </label>
-                                <input type="file" id="edit-user-curriculum" name="curriculum" class="file-input" accept="application/pdf">
+                                <input type="file" id="curriculum" name="curriculum" class="file-input" accept="application/pdf">
                                 <div id="curriculum-name" class="file-name"></div>
                             </div>
-                            <div id="edit-user-curriculum-error" class="error-message"></div>
+                            <div id="curriculum-error" class="error-message"></div>
                         </div>
 
 						<div class="form-group">
-							<label for="edit-user-password">Contraseña</label>
-							<input type="password" id="edit-user-password" name="password" required>
-							<div id="edit-user-password-error" class="error-message"></div>
+							<label for="password">Contraseña</label>
+							<input type="password" id="password" name="password" required>
+							<div id="password-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="edit-user-password-confirmation">Confirmar Contraseña</label>
-							<input type="password" id="edit-user-password-confirmation" name="password_confirmation" required>
-							<div id="edit-user-password-confirmation-error" class="error-message"></div>
+							<label for="password-confirmation">Confirmar Contraseña</label>
+							<input type="password" id="password-confirmation" name="password_confirmation" required>
+							<div id="password-confirmation-error" class="error-message"></div>
 						</div>
 
-						<div class="loading" id="edit-user-loading">
+						<div class="loading" id="loading">
 							<div class="loading-spinner"></div>
 							<p>Editando usuario, por favor espere...</p>
 						</div>

@@ -60,6 +60,10 @@
                     <div id="success-message" class="success-message">
                         ¡Contenido editado con éxito!
                     </div>
+
+                    <div class="general-error-message">
+                        Errores en la validación del formulario
+                    </div>
                     
                     <form id="content-form">
                         <!-- Campos básicos -->
@@ -118,7 +122,7 @@
                         <div class="form-group">
 							<label for="checkbox-container">Vincular a categoría/s</label>
 							<div id="categories-container"></div>
-							<div id="category-error" class="error-message"></div>
+							<div id="categories-container-error" class="error-message"></div>
 						</div>
 
                         <br>
@@ -145,7 +149,7 @@
                         </div>
 
                         <!-- Contenido normal -->
-                        <div id="single-content" class="form-group hidden" style="display: none;">
+                        <div id="single-content" class="form-group hidden">
                             <label for="content">Archivo de contenido</label>
                             <div class="file-input-container">
                                 <label class="file-input-label" for="content">
@@ -159,7 +163,7 @@
                         </div>
                         
                         <!-- Contenido HLS -->
-                        <div id="hls-content" class="form-group hidden" style="display: none;">
+                        <div id="hls-content" class="form-group hidden">
                             <label>Archivos HLS</label>
                             
                             <div class="file-input-container">
@@ -218,7 +222,7 @@
                         <div class="form-group">
                             <label for="duration-type-name">Tipo de contenido</label>
                             <select id="duration-type-name" name="duration_type_name">
-                                <option value="" disabled selected>Selecciona un tipo</option>
+                                <option value="disabled" disabled selected>Selecciona un tipo</option>
                                 <option value="cortometraje">Cortometraje</option>
                                 <option value="mediometraje">Mediometraje</option>
                                 <option value="largometraje">Largometraje</option>

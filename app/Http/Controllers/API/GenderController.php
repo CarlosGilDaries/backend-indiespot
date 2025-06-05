@@ -8,6 +8,7 @@ use App\Models\Gender;
 //use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use DataTables;
+use Illuminate\Database\QueryException;
 
 class GenderController extends Controller
 {
@@ -156,6 +157,15 @@ class GenderController extends Controller
                 'message' => 'Género eliminado con éxito'
             ], 200);
 
+        } catch (QueryException $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El género tiene películas vinculadas. Desvincule antes de eliminar.'
+                ], 409);
+            }
         } catch(\Exception $e) {
             Log::error('Error al eliminar el género: ' . $e->getMessage());
             
@@ -163,7 +173,7 @@ class GenderController extends Controller
                 'success' => false,
                 'message' => 'Error: ' . $e->getMessage(),
             ], 500);
-        }
+        } 
     }
 
     private function getActionButtons($gender)

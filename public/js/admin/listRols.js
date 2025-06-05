@@ -24,7 +24,9 @@ async function listRols() {
                     </div>
                     <div id="delete-rol-success-message" class="success-message" style="margin-bottom: 20px;">
                       ¡Rol eliminado con éxito!
-                    </div>    
+                    </div>
+                    <div class="general-error-message" style="margin-bottom: 20px;">
+                    </div> 
                     <div class="table-responsive">
                         <table class="content-table display datatable">
                             <thead>

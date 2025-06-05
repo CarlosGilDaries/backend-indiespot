@@ -1,3 +1,5 @@
+import { validateUserForm } from "../modules/validateUserForm.js";
+
 async function editUserForm() {
   let id = localStorage.getItem('id');
   const token = localStorage.getItem('auth_token');
@@ -6,34 +8,48 @@ async function editUserForm() {
   loadUserData(id);
 
   document
-    .getElementById('edit-user-form')
+    .getElementById('form')
     .addEventListener('submit', async function (e) {
       e.preventDefault();
-      document.getElementById('edit-user-loading').style.display = 'block';
+
+      // Validar antes de enviar
+      if (!validateUserForm())  {
+          // Mostrar mensaje de error general
+          document.querySelector(".general-error-message").style.display =
+              "block";
+          setTimeout(() => {
+              document.querySelector(".general-error-message").style.display =
+                  "none";
+          }, 5000);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+      }
+
+      document.getElementById('loading').style.display = 'block';
 
       const formData = new FormData();
-      formData.append('name', document.getElementById('edit-user-name').value);
+      formData.append('name', document.getElementById('name').value);
       formData.append(
         'surnames',
-        document.getElementById('edit-user-surnames').value
+        document.getElementById('surnames').value
       );
       formData.append(
         'email',
-        document.getElementById('edit-user-email').value
+        document.getElementById('email').value
         );
-      formData.append('portfolio', document.getElementById('edit-user-portfolio').value);
+      formData.append('portfolio', document.getElementById('portfolio').value);
       formData.append(
         'rol',
-        document.getElementById('edit-user-rol').value
+        document.getElementById('rol').value
         );
-      formData.append('curriculum', document.getElementById('edit-user-curriculum').files[0]);
+      formData.append('curriculum', document.getElementById('curriculum').files[0]);
       formData.append(
         'password',
-        document.getElementById('edit-user-password').value
+        document.getElementById('password').value
       );
       formData.append(
         'password_confirmation',
-        document.getElementById('edit-user-password-confirmation').value
+        document.getElementById('password-confirmation').value
       );
 
       try {
@@ -48,10 +64,10 @@ async function editUserForm() {
         const data = await editResponse.json();
 
         if (data.success) {
-          document.getElementById('edit-user-success-message').style.display =
+          document.getElementById('success-message').style.display =
             'block';
           setTimeout(() => {
-            document.getElementById('edit-user-success-message').style.display =
+            document.getElementById('success-message').style.display =
               'none';
           }, 5000);
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -61,7 +77,7 @@ async function editUserForm() {
       } catch (error) {
         console.error('Error:', error);
       } finally {
-        document.getElementById('edit-user-loading').style.display = 'none';
+        document.getElementById('loading').style.display = 'none';
       }
     });
 
@@ -84,7 +100,7 @@ async function editUserForm() {
       const user = data.data.user;
       const rols = rolsData.rols;
 
-      const rolSelect = document.getElementById("edit-user-rol");
+      const rolSelect = document.getElementById("rol");
       rolSelect.innerHTML = "";
       rols.forEach((rol) => {
           const option = document.createElement("option");
@@ -116,18 +132,18 @@ async function editUserForm() {
       };
 
       setupFileInput(
-        'edit-user-curriculum',
+        'curriculum',
         'curriculum-name',
         'curriculum-label-text',
         user.curriculum
       );
       console.log(user);
-      document.getElementById('edit-user-name').value = user.name || '';
-      document.getElementById('edit-user-surnames').value = user.surnames || '';
-      document.getElementById('edit-user-email').value = user.email || '';
-      document.getElementById('edit-user-portfolio').value =
+      document.getElementById('name').value = user.name || '';
+      document.getElementById('surnames').value = user.surnames || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('portfolio').value =
         user.portfolio || '';
-      document.getElementById('edit-user-rol').value = user.rol_id;
+      document.getElementById('rol').value = user.rol_id;
     } catch (error) {
       console.error('Error cargando datos del usuario:', error);
     }

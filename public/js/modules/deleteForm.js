@@ -31,6 +31,14 @@ export function deleteForm(token, formClass, endpoint, message) {
             setTimeout(() => {
               message.style.display = 'none';
             }, 5000);
+          } else {
+            document.querySelector(".general-error-message").innerHTML = deleteData.message;
+            document.querySelector(".general-error-message").style.display =
+                "block";
+            setTimeout(() => {
+                document.querySelector(".general-error-message").style.display =
+                    "none";
+            }, 5000);
           }
         } catch (error) {
           console.error('Error:', error);

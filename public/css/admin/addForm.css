@@ -98,6 +98,17 @@ textarea {
     display: none;
 }
 
+.general-error-message {
+    color: var(--error-message-color);
+    font-size: 1rem;
+    margin-block: 1rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: rgba(175, 91, 76, 0.1);
+    border-radius: 4px;
+    display: none;
+}
+
 .loading {
     display: none;
     text-align: center;

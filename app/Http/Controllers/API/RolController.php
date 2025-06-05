@@ -7,6 +7,7 @@ use App\Models\Rol;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use DataTables;
+use Illuminate\Database\QueryException;
 
 class RolController extends Controller
 {
@@ -157,6 +158,15 @@ class RolController extends Controller
                 'message' => 'Rol eliminado con éxito'
             ], 200);
 
+        } catch (QueryException $e) {
+            Log::error('Error: ' . $e->getMessage());
+
+            if ($e->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El rol tiene usuarios vinculados. Desvincule antes de eliminar.'
+                ], 409);
+            } 
         } catch(\Exception $e) {
             Log::error('Error al eliminar el rol: ' . $e->getMessage());
             

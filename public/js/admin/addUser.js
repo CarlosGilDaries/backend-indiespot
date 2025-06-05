@@ -1,10 +1,12 @@
+import { validateUserForm } from "../modules/validateUserForm.js";
+
 async function initAddUser() {
   const backendAPI = 'https://indiespot.test/api/';
 
-  const form = document.getElementById('add-user-form');
-  const rolSelect = document.getElementById('add-user-rol');
-  const successMessage = document.getElementById('add-user-success-message');
-  const loading = document.getElementById('add-user-loading');
+  const form = document.getElementById('form');
+  const rolSelect = document.getElementById('rol');
+  const successMessage = document.getElementById('success-message');
+  const loading = document.getElementById('loading');
 
   // Obtener token
   const authToken = localStorage.getItem('auth_token');
@@ -27,7 +29,7 @@ async function initAddUser() {
     };
     
     setupFileInput(
-      'add-user-curriculum',
+      'curriculum',
       'curriculum-name',
       'curriculum-label-text'
     );
@@ -54,78 +56,87 @@ async function initAddUser() {
 
   // Manejar envío del formulario
   form.addEventListener('submit', async function (e) {
-    e.preventDefault();
+      e.preventDefault();
 
-    // Resetear mensajes de error
-    document
-      .querySelectorAll('#add-user-form .error-message')
-      .forEach((el) => (el.textContent = ''));
-    successMessage.style.display = 'none';
-    loading.style.display = 'block';
-
-    // Construir FormData
-    const formData = new FormData();
-    formData.append('name', document.getElementById('add-user-name').value);
-    formData.append(
-      'surnames',
-      document.getElementById('add-user-surnames').value
-    );
-    formData.append('email', document.getElementById('add-user-email').value);
-    if (document.getElementById('add-user-curriculum').files[0]) {
-      formData.append(
-        'curriculum',
-        document.getElementById('add-user-curriculum').files[0]
-      );
-    }
-    formData.append(
-      'portfolio',
-      document.getElementById('add-user-portfolio').value
-    );
-    formData.append('rol', document.getElementById('add-user-rol').value);
-    formData.append(
-      'password',
-      document.getElementById('add-user-password').value
-    );
-    formData.append(
-      'password_confirmation',
-      document.getElementById('add-user-password-confirmation').value
-    );
-
-    try {
-      const response = await fetch(backendAPI + 'register', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        if (data.errors) {
-          for (let field in data.errors) {
-            const errorDiv = document.getElementById(`add-user-${field}-error`);
-            if (errorDiv) errorDiv.textContent = data.errors[field][0];
-          }
-        } else {
-          throw new Error(data.message || 'Error al registrar el usuario');
-        }
-        return;
+      // Validar antes de enviar
+      if (!validateUserForm())  {
+          // Mostrar mensaje de error general
+          document.querySelector(".general-error-message").style.display =
+              "block";
+          setTimeout(() => {
+              document.querySelector(".general-error-message").style.display =
+                  "none";
+          }, 5000);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
       }
 
-      // Mostrar éxito
-      successMessage.style.display = 'block';
-      setTimeout(() => {
-        successMessage.style.display = 'none';
-      }, 5000);
-      form.reset();
-    } catch (error) {
-      console.error('Error:', error);
-    } finally {
-      loading.style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+      // Resetear mensajes de error
+      document
+          .querySelectorAll("#form .error-message")
+          .forEach((el) => (el.textContent = ""));
+      successMessage.style.display = "none";
+      loading.style.display = "block";
+
+      // Construir FormData
+      const formData = new FormData();
+      formData.append("name", document.getElementById("name").value);
+      formData.append("surnames", document.getElementById("surnames").value);
+      formData.append("email", document.getElementById("email").value);
+      if (document.getElementById("curriculum").files[0]) {
+          formData.append(
+              "curriculum",
+              document.getElementById("curriculum").files[0]
+          );
+      }
+      formData.append("portfolio", document.getElementById("portfolio").value);
+      formData.append("rol", document.getElementById("rol").value);
+      formData.append("password", document.getElementById("password").value);
+      formData.append(
+          "password_confirmation",
+          document.getElementById("password-confirmation").value
+      );
+
+      try {
+          const response = await fetch(backendAPI + "register", {
+              method: "POST",
+              headers: {
+                  Authorization: `Bearer ${authToken}`,
+              },
+              body: formData,
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+              if (data.errors) {
+                  for (let field in data.errors) {
+                      const errorDiv = document.getElementById(
+                          `${field}-error`
+                      );
+                      if (errorDiv)
+                          errorDiv.textContent = data.errors[field][0];
+                  }
+              } else {
+                  throw new Error(
+                      data.message || "Error al registrar el usuario"
+                  );
+              }
+              return;
+          }
+
+          // Mostrar éxito
+          successMessage.style.display = "block";
+          setTimeout(() => {
+              successMessage.style.display = "none";
+          }, 5000);
+          form.reset();
+      } catch (error) {
+          console.error("Error:", error);
+      } finally {
+          loading.style.display = "none";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+      }
   });
 }
 

@@ -553,7 +553,12 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {    
+        try {   
+            $movie = Content::where('id', $id)->first();
+            $request->merge([
+                'type' => $request->input('type') === 'disabled' ? $movie->type : $request->input('type')
+            ]);
+
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:100',
                 'tagline' => 'required|string|max:500',
@@ -606,19 +611,19 @@ class ContentController extends Controller
                 'release_date' => 'required|date|before_or_equal:today',
                 'duration' => 'required|date_format:H:i:s',
                 'duration_type_name' => 'required|in:cortometraje,mediometraje,largometraje',
-                'type' => 'required|in:video/mp4,application/vnd.apple.mpegurl',
+                'type' => 'nullable|in:video/mp4,application/vnd.apple.mpegurl',
                 'change_content_file' => 'sometimes|boolean'
             ]);
             
             if ($validator->fails()) {
+                Log::debug($validator->errors());
                 return response()->json([
                     'success' => false,
                     'errors' => $validator->errors(),
                     'message' => 'Error en la validación del formulario'
                 ], 422);
-            }   
+            }  
 
-            $movie = Content::where('id', $id)->first();
             $title = $request->input('title');
             $movie->overview = $request->input('overview');
             $movie->tagline = $request->input('tagline');
@@ -746,13 +751,6 @@ class ContentController extends Controller
             $movie->categories()->sync($request->input('categories'));
 
             $movie->save();
-                /*DB::table('content_role_user')->insert([
-                    'content_id' => $movie->id,
-                    'user_id' => $director->id,
-                    'role_id' => 2,                   
-                    'created_at' => now(),
-                    'updated_at' => now(),
-            ]);*/
 
             return response()->json([
                 'success' => true,
@@ -773,7 +771,10 @@ class ContentController extends Controller
     public function directorUpdate(Request $request, $id)
     {
         try {  
-            
+            $movie = Content::where('id', $id)->first();
+            $request->merge([
+                'type' => $request->input('type') === 'disabled' ? $movie->type : $request->input('type')
+            ]);
             $validator = Validator::make($request->all(), [
                 'title' => 'required|string|max:100',
                 'tagline' => 'required|string|max:500',
@@ -824,11 +825,12 @@ class ContentController extends Controller
                 'release_date' => 'required|date|before_or_equal:today',
                 'duration' => 'required|date_format:H:i:s',
                 'duration_type_name' => 'required|in:cortometraje,mediometraje,largometraje',
-                'type' => 'required|in:video/mp4,application/vnd.apple.mpegurl',
+                'type' => 'nullable|in:video/mp4,application/vnd.apple.mpegurl',
                 'change_content_file' => 'sometimes|boolean'
             ]);
             
             if ($validator->fails()) {
+                Log::debug($validator->errors());
                 return response()->json([
                     'success' => false,
                     'errors' => $validator->errors(),
@@ -836,7 +838,6 @@ class ContentController extends Controller
                 ], 422);
             } 
 
-            $movie = Content::where('id', $id)->first();
             $title = $request->input('title');
             $movie->overview = $request->input('overview');
             $movie->tagline = $request->input('tagline');

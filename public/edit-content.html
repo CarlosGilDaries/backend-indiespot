@@ -44,6 +44,10 @@
                     <div id="success-message" class="success-message">
                         ¡Contenido editado con éxito!
                     </div>
+
+                    <div class="general-error-message">
+                        Errores en la validación del formulario
+                    </div>
                     
                     <form id="content-form">
                         <!-- Campos básicos -->
@@ -115,7 +119,7 @@
                         <div id="type-content" class="form-group hidden">
                             <label for="type">Formato del contenido</label>
                             <select id="type" name="type">
-                                <option value="" disabled selected>Selecciona un formato</option>
+                                <option value="disabled" disabled selected>Selecciona un formato</option>
                                 <option value="video/mp4">MP4</option>
                                 <option value="application/vnd.apple.mpegurl">HLS</option>
                             </select>

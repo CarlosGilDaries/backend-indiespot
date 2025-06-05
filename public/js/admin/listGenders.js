@@ -24,7 +24,9 @@ async function listGenders() {
             </div>
                       <div id="delete-gender-success-message" class="success-message" style="margin-bottom: 20px;">
                         ¡Género eliminado con éxito!
-                      </div>    
+                      </div>
+                    <div class="general-error-message" style="margin-bottom: 20px;">
+                    </div>    
                       <div class="table-responsive" id="genders-table">
                           <table class="content-table display datatable">
                               <thead>

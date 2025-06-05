@@ -57,68 +57,71 @@
 				<div class="container" id="add-user">
 					<!-- Añadir Usuario -->
 					<h1><i class="fas fa-user"></i> Añadir Usuario</h1>
-					<div id="add-user-success-message" class="success-message">
+					<div id="success-message" class="success-message">
 						Usuario añadido con éxito
 					</div>
-					<form id="add-user-form">
+                    <div class="general-error-message">
+                        Errores en la validación del formulario
+                    </div>
+					<form id="form">
 						<div class="form-group">
-							<label for="add-user-name">Nombre</label>
-							<input type="text" id="add-user-name" name="name" required>
-							<div id="add-user-name-error" class="error-message"></div>
+							<label for="name">Nombre</label>
+							<input type="text" id="name" name="name" required>
+							<div id="name-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="add-user-surnames">Apellidos</label>
-							<input type="text" id="add-user-surnames" name="name" required>
-							<div id="add-user-surnames-error" class="error-message"></div>
+							<label for="surnames">Apellidos</label>
+							<input type="text" id="surnames" name="name" required>
+							<div id="surnames-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="add-user-email">Email</label>
-							<input type="email" id="add-user-email" name="email" required>
-							<div id="add-user-email-error" class="error-message"></div>
+							<label for="email">Email</label>
+							<input type="email" id="email" name="email" required>
+							<div id="email-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="add-user-rol">Rol</label>
-                            <select id="add-user-rol" required>
+							<label for="rol">Rol</label>
+                            <select id="rol" required>
                                 <option value="" disabled selected>Seleccione un rol</option>
                             </select>
-							<div id="add-user-rol-error" class="error-message"></div>
+							<div id="rol-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="add-user-portfolio">Url Portfolio (Opcional)</label>
-                            <input type="text" id="add-user-portfolio" required>
-							<div id="add-user-portfolio-error" class="error-message"></div>
+							<label for="portfolio">Url Portfolio (Opcional)</label>
+                            <input type="text" id="portfolio">
+							<div id="portfolio-error" class="error-message"></div>
 						</div>
 
                         <div class="form-group">
-                            <label for="add-user-curriculum">Curriculum (PDF Opcional)</label>
+                            <label for="curriculum">Curriculum (PDF Opcional)</label>
                             <div class="file-input-container">
-                                <label class="file-input-label" for="add-user-curriculum">
+                                <label class="file-input-label" for="curriculum">
                                     <i class="fas fa-image"></i>
                                     <span id="curriculum-label-text">Seleccionar archivo...</span>
                                 </label>
-                                <input type="file" id="add-user-curriculum" name="curriculum" class="file-input" accept="application/pdf">
+                                <input type="file" id="curriculum" name="curriculum" class="file-input" accept="application/pdf">
                                 <div id="curriculum-name" class="file-name"></div>
                             </div>
-                            <div id="add-user-curriculum-error" class="error-message"></div>
+                            <div id="curriculum-error" class="error-message"></div>
                         </div>
 
 						<div class="form-group">
-							<label for="add-user-password">Contraseña</label>
-							<input type="password" id="add-user-password" name="password" required>
-							<div id="add-user-password-error" class="error-message"></div>
+							<label for="password">Contraseña</label>
+							<input type="password" id="password" name="password" required>
+							<div id="password-error" class="error-message"></div>
 						</div>
 
 						<div class="form-group">
-							<label for="add-user-password-confirmation">Confirmar Contraseña</label>
-							<input type="password" id="add-user-password-confirmation" name="password_confirmation" required>
-							<div id="add-user-password-confirmation-error" class="error-message"></div>
+							<label for="password-confirmation">Confirmar Contraseña</label>
+							<input type="password" id="password-confirmation" name="password_confirmation" required>
+							<div id="password-confirmation-error" class="error-message"></div>
 						</div>
 
-						<div class="loading" id="add-user-loading">
+						<div class="loading" id="loading">
 							<div class="loading-spinner"></div>
 							<p>Añadiendo usuario, por favor espere...</p>
 						</div>
